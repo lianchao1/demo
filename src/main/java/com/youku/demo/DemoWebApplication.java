@@ -19,7 +19,7 @@ public class DemoWebApplication {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(DemoWebApplication.class, args);
-        logger.error("WEB项目启动完成");
+        logger.info("WEB项目启动完成");
 //        System.out.println(ApplicationContextUtil.getActiveProfile());
     }
 
