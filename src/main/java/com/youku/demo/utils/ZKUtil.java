@@ -22,14 +22,9 @@ public class ZKUtil {
 		zkClient = new ZkClient(CONNECT_SERVER, SESSION_TIMEOUT, CONNECTION_TIMEOUT, new MyZkSerializer());
 	}
 
-	public static void main(String[] args) {
-		add("/test", "javaCoder");
-		addDiGui("/a/b/c");
-
-		subscribe("/test");
-
-		delete("/test");
-		deleteDiGui("/a/b");
+	
+	public static ZkClient getZkClient() {
+		return zkClient;
 	}
 
 	public static String read(String dataPath) {
@@ -110,6 +105,18 @@ public class ZKUtil {
 				logger.debug("触发了改变事件：{}-->{}", dataPath, data);
 			}
 		});
+	}
+	
+
+	public static void main(String[] args) {
+//		add("/test", "javaCoder");
+//		addDiGui("/a/b/c/d");
+//		update("/a/b/c/d", "dddd");
+//
+//		subscribe("/test");
+//
+//		delete("/test");
+//		deleteDiGui("/a/b");
 	}
 }
 
