@@ -1,0 +1,88 @@
+git init
+git add file
+git commit -m 'xxx'
+git status
+git diff file  工作区与暂存区比较
+git diff HEAD -- file 工作区与 分支比较
+git log [--pretty=oneline]
+git reflog
+git reset --hard HEAD^/HEAD~10/id
+git checkout -- file 从分支覆盖工作区，若暂存区有则从暂存区覆盖工作区
+git checkout 切换分支
+git reset HEAD file 撤销暂存区的文件
+
+git rm file (还需要commit到分支)
+git remote add origin https://github.com/lianchao1/learngit.git  关联  远程库的名字就是origin
+git push -u origin master  把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程 origin master分支  
+	由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令
+
+git push origin master
+
+git clone https://github.com/lianchao1/gitskills.git
+
+
+
+git branch  查看分支
+git branch -a 查看所有分支（包括远程分支）
+git branch dev  创建dev分支
+git checkout dev  (git switch dev) 切换dev分支
+git checkout -b dev （git switch -c dev） 创建并切换dev分支
+
+
+git merge dev  合并dev分支到当前分支 （直接将当前分支指向dev提交版本）
+git branch -d dev 删除dev分支（分支还没有被合并，如果删除，将丢失掉修改，如果要强行删除，需要使用大写的-D参数）
+
+git log --graph --pretty=oneline --abbrev-commit    ( --graph命令可以看到分支合并图)
+
+
+切换分支前最好是将修改commit调，不然会有提示信息
+
+git merge --no-ff -m "merge with no-ff" dev   会有日志生成新到的提交版本
+	通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。
+	如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+	下面我们实战一下--no-ff方式的git merge
+
+
+
+git stash
+git stash list
+git stash apply stash@{0} 指定stash
+git stash apply （恢复，但是恢复后，stash内容并不删除，你需要用） git stash drop
+git stash pop 恢复的同时把stash内容也删了
+
+git cherry-pick 4c805e2   复制一个特定的提交到当前分支
+
+
+git remote -v查看远程库信息
+git remote rm origin 删除本地库已经关联了origin的远程库
+
+git add -f App.class 强制add
+git check-ignore -v App.class 检测为什么不能提交
+
+
+git checkout -b dev origin/dev （创建远程origin的dev分支到本地）
+git branch --set-upstream-to=origin/dev dev （指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接）
+	在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+		git branch --track [新建分支] [远程主机名]/[远程分支名]是创建一个新分支，并关联，若本地已存在，则会报本地分支已存在的错误
+	建立本地分支和远程分支的关联，使用git branch --set-upstream-to=[远程主机名]/[远程分支名] [本地分支名]
+git push origin dev
+git push origin --delete dev （删除远程分支）
+git pull
+
+git checkout -b dev ->  git push origin dev  （先创建本地分支，再创建远程origin/dev分支，然后git branch --set-upstream-to=origin/dev dev）
+
+
+
+git tag v1.0
+git tag v0.9 f52c633
+git tag -a v0.1 -m "version 0.1 released" 1094adb
+git tag
+git show v0.9
+
+git tag -d v0.1  删除本地标签
+
+git push origin v1.0
+git push origin --tags  （一次性推送全部尚未推送到远程的本地标签）
+git push origin :refs/tags/<tagname>       先删除本地标签，才再可以删除一个远程标签。
+
+
