@@ -1,0 +1,95 @@
+
+let obj = {
+  p: [
+    'Hello',
+    { y: 'World' }
+  ]
+};
+let { p, p: [x, { y }] } = obj;
+x // "Hello"
+y // "World"
+p // ["Hello", {y: "World"}]
+
+
+
+原型继承
+Object.setPrototypeOf(obj1, obj2);
+
+
+var {x: y = 3} = {};
+y // 3
+
+
+function move({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, 0]
+move({}); // [0, 0]
+move(); // [0, 0]
+function move({x, y} = { x: 0, y: 0 }) {
+  return [x, y];
+}
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, undefined]
+move({}); // [undefined, undefined]
+move(); // [0, 0]
+
+
+
+
+const tmpl = addrs => `
+  <table>
+  ${addrs.map(addr => `
+    <tr><td>${addr.first}</td></tr>
+    <tr><td>${addr.last}</td></tr>
+  `).join('')}
+  </table>
+`;
+
+扩展运算符的解构赋值，不能复制继承自原型对象的属性。
+
+
+//解构赋值（没这个限制），扩展运算符解构赋值（只支持自身属性）
+const o = Object.create({ x: 1, y: 2 });
+o.z = 3;
+let { x, ...newObj } = o;
+let { y, z } = newObj;
+x // 1
+y // undefined
+z // 3
+
+
+
+// 写法一
+const clone1 = {
+  __proto__: Object.getPrototypeOf(obj),
+  ...obj
+};
+// 写法二
+const clone2 = Object.assign(
+  Object.create(Object.getPrototypeOf(obj)),
+  obj
+);
+// 写法三
+const clone3 = Object.create(
+  Object.getPrototypeOf(obj),
+  Object.getOwnPropertyDescriptors(obj)
+)
+上面代码中，写法一的__proto__属性在非浏览器的环境不一定部署，因此推荐使用写法二和写法三。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
