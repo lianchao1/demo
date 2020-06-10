@@ -12,7 +12,7 @@ p // ["Hello", {y: "World"}]
 
 
 
-Ô­ÐÍ¼Ì³Ð
+åŽŸåž‹ç»§æ‰¿
 Object.setPrototypeOf(obj1, obj2);
 
 
@@ -47,10 +47,10 @@ const tmpl = addrs => `
   </table>
 `;
 
-À©Õ¹ÔËËã·ûµÄ½â¹¹¸³Öµ£¬²»ÄÜ¸´ÖÆ¼Ì³Ð×ÔÔ­ÐÍ¶ÔÏóµÄÊôÐÔ¡£
+æ‰©å±•è¿ç®—ç¬¦çš„è§£æž„èµ‹å€¼ï¼Œä¸èƒ½å¤åˆ¶ç»§æ‰¿è‡ªåŽŸåž‹å¯¹è±¡çš„å±žæ€§ã€‚
 
 
-//½â¹¹¸³Öµ£¨Ã»Õâ¸öÏÞÖÆ£©£¬À©Õ¹ÔËËã·û½â¹¹¸³Öµ£¨Ö»Ö§³Ö×ÔÉíÊôÐÔ£©
+//è§£æž„èµ‹å€¼ï¼ˆæ²¡è¿™ä¸ªé™åˆ¶ï¼‰ï¼Œæ‰©å±•è¿ç®—ç¬¦è§£æž„èµ‹å€¼ï¼ˆåªæ”¯æŒè‡ªèº«å±žæ€§ï¼‰
 const o = Object.create({ x: 1, y: 2 });
 o.z = 3;
 let { x, ...newObj } = o;
@@ -61,25 +61,28 @@ z // 3
 
 
 
-// Ð´·¨Ò»
+// å†™æ³•ä¸€
 const clone1 = {
   __proto__: Object.getPrototypeOf(obj),
   ...obj
 };
-// Ð´·¨¶þ
+// å†™æ³•äºŒ
 const clone2 = Object.assign(
   Object.create(Object.getPrototypeOf(obj)),
   obj
 );
-// Ð´·¨Èý
+// å†™æ³•ä¸‰
 const clone3 = Object.create(
   Object.getPrototypeOf(obj),
   Object.getOwnPropertyDescriptors(obj)
 )
-ÉÏÃæ´úÂëÖÐ£¬Ð´·¨Ò»µÄ__proto__ÊôÐÔÔÚ·Çä¯ÀÀÆ÷µÄ»·¾³²»Ò»¶¨²¿Êð£¬Òò´ËÍÆ¼öÊ¹ÓÃÐ´·¨¶þºÍÐ´·¨Èý¡£
+ä¸Šé¢ä»£ç ä¸­ï¼Œå†™æ³•ä¸€çš„__proto__å±žæ€§åœ¨éžæµè§ˆå™¨çš„çŽ¯å¢ƒä¸ä¸€å®šéƒ¨ç½²ï¼Œå› æ­¤æŽ¨èä½¿ç”¨å†™æ³•äºŒå’Œå†™æ³•ä¸‰ã€‚
 
-
-
+//å¯ä»¥å¤åˆ¶æ–¹æ³•
+const shallowMerge = (target, source) => Object.defineProperties(
+  target,
+  Object.getOwnPropertyDescriptors(source)
+);
 
 
 
