@@ -49,6 +49,7 @@ const tmpl = addrs => `
 
 扩展运算符的解构赋值，不能复制继承自原型对象的属性。
 
+super//目前只有对象方法的简写方式支持
 
 //解构赋值（没这个限制），扩展运算符解构赋值（只支持自身属性）
 const o = Object.create({ x: 1, y: 2 });
@@ -66,12 +67,12 @@ const clone1 = {
   __proto__: Object.getPrototypeOf(obj),
   ...obj
 };
-// 写法二
+// 写法二 不能复制函数
 const clone2 = Object.assign(
   Object.create(Object.getPrototypeOf(obj)),
   obj
 );
-// 写法三
+// 写法三 不能复制函数
 const clone3 = Object.create(
   Object.getPrototypeOf(obj),
   Object.getOwnPropertyDescriptors(obj)
@@ -79,16 +80,99 @@ const clone3 = Object.create(
 上面代码中，写法一的__proto__属性在非浏览器的环境不一定部署，因此推荐使用写法二和写法三。
 
 
+const obj = {
+  ...(x > 1 ? {a: 1} : {}),
+  b: 2,
+};
+
+
+ES2020 引入了“链判断运算符”（optional chaining operator）?.，简化上面的写法。
+const firstName = message?.body?.user?.firstName || 'default';
+const fooValue = myForm.querySelector('input[name=foo]')?.value
+if (myForm.checkValidity?.() === false) {
+  // 表单校验失败
+  return;
+}
+
+a?.[x]
+// 等同于
+a == null ? undefined : a[x]
+a?.()
+// 等同于
+a == null ? undefined : a()
 
 
 
+ES2020 引入了一个新的 Null 判断运算符??。它的行为类似||，但是只有运算符左侧的值为null或undefined时，才会返回右侧的值
+
+
+Object.defineProperty({}, 'invisible', {
+    enumerable: false,
+    value: 'hello'
+  })
+
+
+//
+Object.assign(SomeClass.prototype, {
+  someMethod(arg1, arg2) {
+    ···
+  },
+  anotherMethod() {
+    ···
+  }
+});
+// 等同于下面的写法
+SomeClass.prototype.someMethod = function (arg1, arg2) {
+  ···
+};
+SomeClass.prototype.anotherMethod = function () {
+  ···
+};
+
+
+/合并对象 可以复制函数
+const shallowMerge = (target, source) => Object.defineProperties(
+  target,
+  Object.getOwnPropertyDescriptors(source)
+);
 
 
 
+==================混入mixin模式=======================
 
+function mix(...mixins) {
+  class Mix {
+    constructor() {
+      for (let mixin of mixins) {
+        copyProperties(this, new mixin()); // 拷贝实例属性
+      }
+    }
+  }
 
+  for (let mixin of mixins) {
+    copyProperties(Mix, mixin); // 拷贝静态属性
+    copyProperties(Mix.prototype, mixin.prototype); // 拷贝原型属性
+  }
 
+  return Mix;
+}
 
+function copyProperties(target, source) {
+  for (let key of Reflect.ownKeys(source)) {
+    if ( key !== 'constructor'
+      && key !== 'prototype'
+      && key !== 'name'
+    ) {
+      let desc = Object.getOwnPropertyDescriptor(source, key);
+      Object.defineProperty(target, key, desc);
+    }
+  }
+}
+
+class DistributedEdit extends mix(Loggable, Serializable) {
+  // ...
+}
+===========================================
 
 
 
