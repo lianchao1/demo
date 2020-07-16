@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 const ImageInlineSizeLimit = 10000; //默认limit是10000了，就是让8kb之内的图片才编码
 
@@ -18,7 +19,8 @@ module.exports = {
 			loader: 'babel-loader'
 		}, {
 			test: /\.css$/, //*.global.css->不开启css-loader modules
-			loader: 'style-loader!css-loader'
+			//loader: 'style-loader!css-loader'
+			use: ['style-loader', 'css-loader'] // 从后往前执行
 		}, {
 			test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
 			loader: 'url-loader',
@@ -33,16 +35,17 @@ module.exports = {
 			'$': 'jquery',
 			jQuery: 'jquery',
 			'_': 'lodash',
-		})
+		}),		
+		new CleanWebpackPlugin()
 	],
 	resolve: {
 		extensions: ['.js', ".json", '.css'],
 		modules: [path.resolve(__dirname, "src"), "node_modules"],
 	},
-	devtool: 'inline-source-map',
+	devtool: 'eval-source-map',//eval-source-map
 	devServer: {
-		contentBase: path.join(__dirname, "page"),//页面目录
-		publicPath: '/dist/',//内存中生成的编译目标目录
+		contentBase: path.join(__dirname, "page"), //页面目录
+		publicPath: '/dist/', //内存中生成的编译目标目录
 		port: 8081,
 		open: true
 	}
