@@ -36,6 +36,9 @@ module.exports = {
 		}]
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+		  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+		}),
 		new webpack.ProvidePlugin({
 			'$': 'jquery',
 			jQuery: 'jquery',
@@ -69,7 +72,7 @@ module.exports = {
 		})
 	],
 	resolve: {
-		extensions: ['.js', ".json", '.css'],
+		extensions: ['.js', ".json", '.css'],//在导入语句没带文件后缀时，Webpack 会自动带上后缀后去尝试访问文件是否存在
 		modules: [path.resolve(__dirname, "src"), "node_modules"],
 	},
 	devtool: 'eval-source-map', //eval-source-map
