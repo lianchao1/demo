@@ -1,4 +1,4 @@
-import {Print} from './one'
+import {Print} from './print'
 import bigImgSrc from '../images/big.png';
 
 var bigImg = document.createElement("img");

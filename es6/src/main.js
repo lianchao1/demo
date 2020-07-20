@@ -1,15 +1,26 @@
 import {
 	Print
-} from './one'
+} from './print'
 import smallImgSrc from '../images/small.png';
-
+import css from '../css/app';
 var smallImg = document.createElement("img");
 smallImg.src = smallImgSrc;
 document.body.appendChild(smallImg);
 
 document.write('<h1>Hello World</h1>');
 new Print();
-$("#top").append("<span>444</span>")
+
+if (__DEV__) {
+	import('../css/leihou.css');
+	import('./leihou')
+		.then(({
+			Leihou
+		}) => {
+			new Leihou();
+		}).catch(error => {
+			console.error(error);
+		});
+}
 
 
 let url = 'http://dev150.gszhcloud.com:8091/formWeb/beta/dataService/page';
@@ -42,11 +53,20 @@ fetch(url, {
 
 
 url = 'http://dev150.gszhcloud.com:8091/formWeb/dataService/dataBaseServiceIntf?updateOnlyDataAndNoCheckNull=true';
-let updateData = {"keyName":"ID","keyValue":"248","entId":"entid_TUSER_INFO_ZBUYAODONG_JIU","opType":2,"columnsData":{
-	"RADIO":"radio11",
-	"INPUT":"input411",
-	"TEXTAREA":"textarea11"
-},"subTableDatas":{},"delSubData":{},"subEntIds":[]}
+let updateData = {
+	"keyName": "ID",
+	"keyValue": "248",
+	"entId": "entid_TUSER_INFO_ZBUYAODONG_JIU",
+	"opType": 2,
+	"columnsData": {
+		"RADIO": "radio11",
+		"INPUT": "input411",
+		"TEXTAREA": "textarea11"
+	},
+	"subTableDatas": {},
+	"delSubData": {},
+	"subEntIds": []
+}
 //跨域测试
 fetch(url, {
 		method: 'POST',
