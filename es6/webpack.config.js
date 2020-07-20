@@ -78,9 +78,9 @@ module.exports = {
 	devtool: 'eval-source-map', //eval-source-map
 	devServer: {
 		//contentBase: path.join(__dirname, "dist"), //页面目录
-		//publicPath: '/dist/', //内存中生成的编译目标目录
+		publicPath: '/es6/', //内存中生成的编译目标目录(类似应用名)
 		port: 8081,
 		open: true,
-		openPage: 'main.html'
+		openPage: 'es6/main.html'
 	}
 }
