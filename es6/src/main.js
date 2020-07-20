@@ -23,7 +23,7 @@ if (__DEV__) {
 }
 
 
-let url = 'http://dev150.gszhcloud.com:8091/formWeb/beta/dataService/page';
+let url = '/formWeb/beta/dataService/page';
 let searchData = {
 	"entId": "entid_TEST_INFO_ZBUYAODONG",
 	"ctrlPrefix": "ListR_",
@@ -31,7 +31,7 @@ let searchData = {
 	"currentPage": 1,
 	"searchParamItems": [{
 		"fieldName": "ID",
-		"value": "300",
+		"value": "310",
 		"compareType": "<=",
 		"fieldDataTypeId": "1"
 	}]
