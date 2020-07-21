@@ -4,6 +4,8 @@ import {
 import smallImgSrc from '../images/small.png';
 import '../css/app';
 import globalObj from 'globalObjSb'
+import FormGlobalConf2Sb from 'FormGlobalConf2Sb'
+import $script from 'scriptjs'
 
 var smallImg = document.createElement("img");
 smallImg.src = smallImgSrc;
@@ -54,7 +56,7 @@ fetch(url, {
 	});
 
 
-url = 'http://dev150.gszhcloud.com:8091/formWeb/dataService/dataBaseServiceIntf?updateOnlyDataAndNoCheckNull=true';
+url = '/formWeb/dataService/dataBaseServiceIntf?updateOnlyDataAndNoCheckNull=true';
 let updateData = {
 	"keyName": "ID",
 	"keyValue": "248",
@@ -90,3 +92,25 @@ console.log(_.fill([4, 6, 8, 10], '*', 1, 3));
 //全局变量
 globalObj.add();
 console.log(globalObj.index)
+
+
+import('./file')
+	.then(({
+		fileData
+	}) => {
+		console.log(fileData.b())
+	}).catch(error => {
+		console.error(error);
+	});
+
+$script.get(
+	'http://localhost:9000/formWeb/beta/formrun/entid_TEST_INFO_ZBUYAODONG/entCfg.js?v=a93895cc409448c2b61f58de1b3cdcfb&ctrlPrefix=ListR_',
+	function() {
+		console.log(FormGlobalConf2)
+		FormGlobalConf2Sb.FormGlobalConf2 = FormGlobalConf2
+	})
+	
+console.log(FormGlobalConf2Sb)
+setTimeout(function() {
+	console.log(FormGlobalConf2Sb)
+}, 5000);

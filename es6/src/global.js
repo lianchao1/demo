@@ -1,6 +1,7 @@
 //依赖全失效
 let a='aaaa'
 let index = 0;
+FormGlobalConf2 = {};
 var globalData = {
 	a:'aaa',
 	add(){

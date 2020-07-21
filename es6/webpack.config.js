@@ -51,6 +51,8 @@ module.exports = {
 				from: path.join(__dirname, 'src/origin.js')
 			},{
 				from: path.join(__dirname, 'src/global.js')
+			},{
+				from: path.join(__dirname, 'src/file.js')
 			}]
 		}),
 		new HtmlWebpackPlugin({
@@ -89,6 +91,7 @@ module.exports = {
 	externals: {
 	  jquery: "jQuery",//以cdn方式取代node_modules中的依赖，模块名为'jquery'
 	  '_': 'lodash',
-	  globalObjSb:'globalData'//导入的是外部全局对象中的globalData对象，模块名为globalObjSb
+	  globalObjSb:'globalData',//导入的是外部全局对象中的globalData对象，模块名为globalObjSb
+	  FormGlobalConf2Sb:'FormGlobalConf2'//通过url请求获取的
 	}
 }
