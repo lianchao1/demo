@@ -1,6 +1,7 @@
 class Leihou {
 	constructor() {
-		$('#top').append('<h1 class="leihou">Leihou</h1>');
+		//jquery别名ssln
+		ssln('#top').append('<h1 class="leihou">Leihou</h1>');
 	}
 }
 

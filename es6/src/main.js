@@ -2,7 +2,9 @@ import {
 	Print
 } from './print'
 import smallImgSrc from '../images/small.png';
-import css from '../css/app';
+import '../css/app';
+
+
 var smallImg = document.createElement("img");
 smallImg.src = smallImgSrc;
 document.body.appendChild(smallImg);
@@ -81,3 +83,8 @@ fetch(url, {
 	}).catch((error) => {
 		console.error(error);
 	});
+
+//全局引入
+console.log(_.fill([4, 6, 8, 10], '*', 1, 3));
+
+export {updateData as ud, searchData as sd}
