@@ -39,10 +39,11 @@ module.exports = {
 		new webpack.DefinePlugin({
 		  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
 		}),
-		new webpack.ProvidePlugin({
+		new webpack.ProvidePlugin({//优先于cdn方式引入
 			'$': 'jquery',
 			jQuery: 'jquery',
-			'_': 'lodash',
+			//'ssln': 'jquery',//由于node_modules中不存在依赖，使用externals.jquery作为取代，//打包模块中别名ssln能生效,打包模块外不生效
+			'_': 'lodash',//由于node_modules中有依赖，打包模块中'_'使用的是node_modules中的代码
 		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
@@ -82,5 +83,9 @@ module.exports = {
 		port: 8081,
 		open: true,
 		openPage: 'es6/main.html'
+	},
+	externals: {
+	  jquery: "jQuery",//以cdn方式取代node_modules中的依赖，模块名为'jquery'
+	  '_': 'lodash'
 	}
 }

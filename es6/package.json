@@ -28,8 +28,6 @@
 		"webpack-dev-server": "^3.11.0"
 	},
 	"dependencies": {
-		"@babel/polyfill": "^7.10.4",
-		"jquery": "^3.5.1",
-		"lodash": "^4.17.19"
+		"@babel/polyfill": "^7.10.4"
 	}
 }
