@@ -42,13 +42,15 @@ module.exports = {
 		new webpack.ProvidePlugin({//优先于cdn方式引入
 			'$': 'jquery',
 			jQuery: 'jquery',
-			//'ssln': 'jquery',//由于node_modules中不存在依赖，使用externals.jquery作为取代，//打包模块中别名ssln能生效,打包模块外不生效
+			'ssln': 'jquery',//由于node_modules中不存在依赖，使用externals.jquery作为取代，//打包模块中别名ssln能生效,打包模块外不生效
 			'_': 'lodash',//由于node_modules中有依赖，打包模块中'_'使用的是node_modules中的代码
 		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
 			patterns: [{
 				from: path.join(__dirname, 'src/origin.js')
+			},{
+				from: path.join(__dirname, 'src/global.js')
 			}]
 		}),
 		new HtmlWebpackPlugin({
@@ -86,6 +88,7 @@ module.exports = {
 	},
 	externals: {
 	  jquery: "jQuery",//以cdn方式取代node_modules中的依赖，模块名为'jquery'
-	  '_': 'lodash'
+	  '_': 'lodash',
+	  globalObjSb:'globalData'//导入的是外部全局对象中的globalData对象，模块名为globalObjSb
 	}
 }

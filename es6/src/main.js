@@ -3,7 +3,7 @@ import {
 } from './print'
 import smallImgSrc from '../images/small.png';
 import '../css/app';
-
+import globalObj from 'globalObjSb'
 
 var smallImg = document.createElement("img");
 smallImg.src = smallImgSrc;
@@ -87,4 +87,6 @@ fetch(url, {
 //全局引入
 console.log(_.fill([4, 6, 8, 10], '*', 1, 3));
 
-export {updateData as ud, searchData as sd}
+//全局变量
+globalObj.add();
+console.log(globalObj.index)
