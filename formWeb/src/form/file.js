@@ -1,4 +1,5 @@
-//FormGlobalFn
+import _FormGlobalFn from '_FormGlobalFn'
+
 export default class FormFile {
 	constructor(fieldConf, datas, contextPath, formRun) {
 
@@ -25,7 +26,7 @@ export default class FormFile {
 		this.isShow = type.toLowerCase().indexOf("show") >= 0;
 		this.ownEntId = ownEntId;
 		this.fieldName = fieldName;
-		this.id = FormGlobalFn.eleId(fieldConf);
+		this.id = _FormGlobalFn.eleId(fieldConf);
 		this.datas = [];
 		this.contextPath = contextPath;
 

@@ -1,8 +1,12 @@
-//FormGlobalFn
+import 'foundation-datepicker/js/foundation-datepicker.js'
+import 'foundation-datepicker/js/locales/foundation-datepicker.zh-CN.js'
+import 'foundation-datepicker/css/foundation-datepicker.min.css'
+import _FormGlobalFn from '_FormGlobalFn'
+
 export default class FormDate {
 	constructor(fieldConf, data, context) {
 		this.context = context || document;
-		this.id = FormGlobalFn.eleId(fieldConf);
+		this.id = _FormGlobalFn.eleId(fieldConf);
 		this.handler = {};
 
 		let type = fieldConf.ctrlTypeId;

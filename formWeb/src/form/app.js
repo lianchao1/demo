@@ -1,5 +1,6 @@
-//FormGlobalData
-//FormGlobalFn
+import _FormGlobalData from '_FormGlobalData'
+import _FormGlobalFn from '_FormGlobalFn'
+
 export default class FormApp {
 	constructor(fieldConf, contextPath, formRun) {
 		this.context = formRun.$context;
@@ -7,13 +8,13 @@ export default class FormApp {
 		this.contextPath = contextPath;
 		this.fieldConf = fieldConf;
 		this.selectorConf = fieldConf.selectorConf;
-		this.id = FormGlobalFn.eleId(fieldConf);
+		this.id = _FormGlobalFn.eleId(fieldConf);
 
 		this.$id = $("[id='" + this.id + "']", this.context);
 		this.$button = this.$id.parent().find("button");
 		this.$button.off("click");
 		this.$button.click(() => {
-			FormGlobalData.handler = this;
+			_FormGlobalData.handler = this;
 			this.openSelector(this.selectorConf.url, this.selectorConf.width, this.selectorConf.height);
 		});
 	}
@@ -25,16 +26,16 @@ export default class FormApp {
 				entId: this.selectorConf.sourceEnt
 			}, true);
 		}
-		FormGlobalFn.showWindow4Url(url, width, height, "应用选择", (index, layero) => {
+		_FormGlobalFn.showWindow4Url(url, width, height, "应用选择", (index, layero) => {
 			//获取勾选值
-			let data = FormGlobalFn.api.list.getData(undefined, layer.getChildFrame("body", index)[0].ownerDocument.defaultView
+			let data = _FormGlobalFn.api.list.getData(undefined, layer.getChildFrame("body", index)[0].ownerDocument.defaultView
 				.listRun);
 
 			if (data.length > 0) {
 				this.setData(data);
-				FormGlobalFn.showClose(index);
+				_FormGlobalFn.showClose(index);
 			} else {
-				FormGlobalFn.showAlert('请勾选一条记录！', 'w');
+				_FormGlobalFn.showAlert('请勾选一条记录！', 'w');
 			}
 		});
 	}
@@ -44,7 +45,7 @@ export default class FormApp {
 		let targetFields = this.selectorConf.targetField.split(",");
 
 		for (let i = 0; i < sourceFields.length; i++) {
-			let fieldConf = FormGlobalFn.getFieldConfByEntIdAndFieldName(this.selectorConf.targetEnt, targetFields[i], this.formRun
+			let fieldConf = _FormGlobalFn.getFieldConfByEntIdAndFieldName(this.selectorConf.targetEnt, targetFields[i], this.formRun
 				.cfgdataModel.fieldConfs);
 			if (fieldConf) {
 				this.formRun.initSingleFormValue(fieldConf, data[0][sourceFields[i]]);

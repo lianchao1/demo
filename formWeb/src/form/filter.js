@@ -1,4 +1,5 @@
-//FormGlobalFn
+import _FormGlobalFn from '_FormGlobalFn'
+
 export default class FormFilter {
 	constructor(fieldConf, value, name, ctrlPrefix, formRun) {
 
@@ -6,7 +7,7 @@ export default class FormFilter {
 		this.formRun = formRun;
 		this.ctrlPrefix = ctrlPrefix;
 		this.fieldConf = fieldConf;
-		this.id = FormGlobalFn.eleId(fieldConf);
+		this.id = _FormGlobalFn.eleId(fieldConf);
 		this.textId = this.id + "_text";
 		if (value) {
 			this.setData(value, name);
@@ -61,12 +62,12 @@ export default class FormFilter {
 
 			let url = _this.formRun.cfgdata.contextPath + "/beta/dataService/queryFieldSql";
 			let datajson = {
-				mainEntId: entid,
+				mainEntId: _this.fieldConf.ownEntId,
 				ctrlPrefix: _this.ctrlPrefix,
 				fieldRelaVo: fieldRela,
 				formdata: formData
 			};
-			FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
+			_FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 				if (data.result) {
 					let fieldConf = _this.fieldConf;
 					var html = '<span reflag="1" value="" text="请选择">请选择</span>'
@@ -125,7 +126,7 @@ export default class FormFilter {
 				fieldRelaVo: fieldRela,
 				formdata: formData
 			};
-			FormGlobalFn.ajaxRequestJson(url, datajson, (data) => {
+			_FormGlobalFn.ajaxRequestJson(url, datajson, (data) => {
 				if (data.result) {
 					$("[id='" + this.textId + "']", this.context).val(data.obj[0].name);
 				}

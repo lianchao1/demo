@@ -1,12 +1,13 @@
-//FormGlobalData
-//FormGlobalFn
+import _FormGlobalData from '_FormGlobalData'
+import _FormGlobalFn from '_FormGlobalFn'
+
 export default class FormMap {
 	constructor(fieldConf, contextPath, context) {
 
 		this.contextPath = contextPath;
 		this.context = context || document;
 		this.fieldConf = fieldConf;
-		this.id = FormGlobalFn.eleId(fieldConf);
+		this.id = _FormGlobalFn.eleId(fieldConf);
 
 		//是否双字段
 		this.twoFieldFlag = false;
@@ -22,29 +23,30 @@ export default class FormMap {
 		this.$id = $("[id='" + this.id + "']", this.context);
 		this.$button = this.$id.parent().find("button");
 		this.$button.off("click");
-		this.$button.click(() => {
-			FormGlobalData.handler = this;
-			this.openSelector();
+		let _this = this;
+		this.$button.click(function(){
+			_FormGlobalData.handler = _this;
+			_this.openSelector();
 		});
 	}
 	openSelector() {
-		var lng = lat = null;
+		let lng = null, lat = null;
 		if (this.twoFieldFlag) {
 			lng = $("[id='" + this.lngId + "']", this.context).val();
 			lat = $("[id='" + this.latId + "']", this.context).val();
 		} else {
-			var lnglat = this.$id.val();
-			var lnglatArray = lnglat.split(",");
+			let lnglat = this.$id.val();
+			let lnglatArray = lnglat.split(",");
 			lng = lnglatArray[0];
 			lat = lnglatArray[1];
 		}
 
-		var iWidth = 600; //弹出窗口的宽度;
-		var iHeight = 500; //弹出窗口的高度;
+		let iWidth = 600; //弹出窗口的宽度;
+		let iHeight = 500; //弹出窗口的高度;
 		//获得窗口的垂直位置
-		var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+		let iTop = (window.screen.availHeight - 30 - iHeight) / 2;
 		//获得窗口的水平位置
-		var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+		let iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
 
 		window.open(this.contextPath + "/beta/formrun/mapSelector.html?id=" + this.id +
 			"&lat=" + (lat || '') + "&lng=" + (lng || ''),
@@ -54,11 +56,10 @@ export default class FormMap {
 	}
 	//用于openSelector后回填数据到输入框
 	setData(data) {
-		let this = this;
-		FormGlobalData.handler = null;
+		_FormGlobalData.handler = null;
 
 		if (!!data) {
-			let lng = lat = null;
+			let lng = null,lat = null;
 			lng = data.lng;
 			lat = data.lat;
 			if (this.twoFieldFlag) {
@@ -72,7 +73,7 @@ export default class FormMap {
 				}, 0);
 			} else {
 				this.$id.val(lng + "," + lat);
-				setTimeout(function() {
+				setTimeout(() =>{
 					//防止FormTree对象没有初始化就触发验证
 					this.$id.trigger("change");
 				}, 0);

@@ -9,8 +9,7 @@ const ImageInlineSizeLimit = 10000; //默认limit是10000了，就是让8kb之�
 
 module.exports = {
 	entry: {
-		main: './src/main.js',
-		page1: './src/page1.js',
+		formEntry: ['@babel/polyfill','./src/formEntry.js']
 	},
 	output: {
 		//filename: './dist/[name].js',
@@ -42,38 +41,26 @@ module.exports = {
 		new webpack.ProvidePlugin({//优先于cdn方式引入
 			'$': 'jquery',
 			jQuery: 'jquery',
-			'ssln': 'jquery',//由于node_modules中不存在依赖，使用externals.jquery作为取代，//打包模块中别名ssln能生效,打包模块外不生效
 			'_': 'lodash',//由于node_modules中有依赖，打包模块中'_'使用的是node_modules中的代码
 		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
 			patterns: [{
-				from: path.join(__dirname, 'src/origin.js')
+				from: path.join(__dirname, 'src/base64.js')
 			},{
-				from: path.join(__dirname, 'src/global.js')
+				from: path.join(__dirname, 'src/common.js')
 			},{
-				from: path.join(__dirname, 'src/file.js')
+				from: path.join(__dirname, 'src/form/form.js')
 			}]
 		}),
 		new HtmlWebpackPlugin({
-			chunks: ['main'], //添加引入的js,也就是entry中的key
-			filename: 'main.html',
+			chunks: ['formEntry'], //添加引入的js,也就是entry中的key
+			filename: 'form.html',
 			minify: {
 				collapseWhitespace: false //折叠空白区域 也就是压缩代码
 			},
 			hash: true,
-			title: 'main',
-			template: path.join(__dirname, './page/main.html') //模板地址
-		}),
-		new HtmlWebpackPlugin({
-			chunks: ['page1'], //添加引入的js,也就是entry中的key
-			filename: 'page1.html',
-			minify: {
-				collapseWhitespace: false //折叠空白区域 也就是压缩代码
-			},
-			hash: true,
-			title: 'page',
-			template: path.join(__dirname, './page/page1.html') //模板地址
+			template: path.join(__dirname, './page/form.html') //模板地址
 		})
 	],
 	resolve: {
@@ -86,12 +73,15 @@ module.exports = {
 		publicPath: '/es6/', //内存中生成的编译目标目录(类似应用名)
 		port: 8081,
 		open: true,
-		openPage: 'es6/main.html'
+		openPage: 'es6/form.html?optype=create'
 	},
 	externals: {
-	  jquery: "jQuery",//以cdn方式取代node_modules中的依赖，模块名为'jquery'
+	  jquery: "jQuery",
 	  '_': 'lodash',
-	  globalObjSb:'globalData',//导入的是外部全局对象中的globalData对象，模块名为globalObjSb
-	  FormGlobalConf2Sb:'FormGlobalConf2'//通过url请求获取的
+	  base64:'base64',
+	  _FormGlobalData:'FormGlobalData',
+	  _FormGlobalConf:'FormGlobalConf',
+	  _FormGlobalFn:'FormGlobalFn',
+	  _EntFormGlobalConf:'FormGlobalConf2'//通过url请求获取的
 	}
 }

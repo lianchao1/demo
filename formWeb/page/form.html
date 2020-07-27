@@ -1,0 +1,131 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+		<!-- 公共对象使用到不能编入 -->
+		<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.19/lodash.js"></script>
+		<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.js"></script>
+
+		<!-- 找不到import方式 -->
+		<script type="text/javascript" charset="utf-8" src="/formWeb/ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/formWeb/ueditor/ueditor.all.min.js"> </script>
+		<script type="text/javascript" charset="utf-8" src="/formWeb/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+		<!-- <script src="${JS_FRAME_PATH}/zTree_v3/js/fuzzysearch.js"></script> -->
+		<script type="text/javascript" src="./base64.js"></script>
+		<script type="text/javascript" src="./common.js"></script>
+		<script type="text/javascript" src="./form.js"></script>
+
+
+		<!-- <script type="text/javascript" src="${JS_PATH}/beta/formrun.js"></script>
+		<script type="text/javascript" src="${JS_PATH}/beta/form/form.js"></script> -->
+		<!-- 列表子应用 -->
+		<!-- <script type="text/javascript" src="${JS_PATH}/beta/listrun.js"></script>
+		<script type="text/javascript" src="${JS_PATH}/beta/list/list.js"></script> -->
+		<!-- 树子应用选择 -->
+		<!-- <script type="text/javascript" src="${JS_PATH}/beta/treerun.js"></script>
+		
+		<link rel="stylesheet" href="${JS_PATH}/MyPaging/MyPaging.css" />
+		<script type="text/javascript" src="${JS_PATH}/MyPaging/MyPaging.js"></script> -->
+
+
+	</head>
+
+	<body>
+		<div class="ajaxForm_main main">
+
+		</div>
+		<!--script>
+			let entid = "${entid}";
+			FormGlobalConf.isMobileTemp = $ {
+				appFlag!false
+			};
+
+			//修改页面数据是否加载完毕标识（包括子应用数据）
+			var editDataHasInitFlag = false;
+			var formRun = new FormRun();
+			formRun.setCfgData(FormGlobalConf2);
+			formRun.inicfg(entid);
+			formRun.initBtn();
+			//======================afterEditDataHasInitFn子应用初始化 start======================//
+
+			let initSubEntFn = function() {
+				let viewType = FormGlobalFn.getQueryString("viewType");
+				$("[ctrltypeid='table'],[ctrltypeid='subEntListR']").each(function() {
+					let _this = this;
+					let subEntid = $(_this).attr("entid");
+					let subEntConf = FormGlobalConf2.subEntConfs[subEntid];
+					let localFormRun = formRun; //局部变量
+					/**
+					 * 子应用类型
+					 * 1：列表
+					 * 2：树
+					 * 3：树详情
+					 */
+					if (subEntConf.subEntType == '1') { //用不到通过主应用获取的子应用数据		
+						let url = FormGlobalConf2.contextPath + "/beta/list/" + $(this).attr("entid") + ".html?vurl=sub_list";
+						$(_this).load(url, function() {
+							let listRun = new ListRun(); //不要污染主应用列表
+							localFormRun.subListRuns.push(listRun); //主要用于获取子应用数据，会有循环引用问题
+							listRun.pform = localFormRun; //会有循环引用问题
+							listRun.$context = _this;
+							listRun.setCfgData(subEntConf);
+							listRun.searchFlag = false;
+							listRun.initevent();
+							listRun.initBtn();
+						});
+					}
+				});
+
+				$("[ctrltypeid='subEntTree']").each(function() {
+					let _this = this;
+					let subEntid = $(_this).attr("entid");
+					let subEntConf = FormGlobalConf2.subEntConfs[subEntid];
+					let localFormRun = formRun; //局部变量
+					/**
+					 * 子应用类型
+					 * 1：列表
+					 * 2：树
+					 * 3：树详情
+					 */
+					if (subEntConf.subEntType == '2') { //用到通过主应用获取的子应用数据	
+						let treeRun = new TreeRun(); //不要污染主应用列表
+						localFormRun.subListRuns.push(treeRun); //主要用于获取子应用数据，会有循环引用问题
+						treeRun.pform = localFormRun; //会有循环引用问题
+						treeRun.$context = _this;
+						treeRun.init(subEntConf);
+					}
+				});
+			}
+
+			let afterEditDataHasInitFn = function() {
+				if (!editDataHasInitFlag) {
+					setTimeout(afterEditDataHasInitFn, 1000);
+				} else {
+					initSubEntFn();
+				}
+			}
+
+			if (!formRun.cfgdata.subEntFlag && formRun.cfgdataModel.opType == "create") { //主应用为新增时，直接加载子应用初始化
+				initSubEntFn();
+			} else {
+				afterEditDataHasInitFn();
+			}
+
+			function refreshHeight() {
+				var iframeobj = FormGlobalFn.getIframeByWindow(window);
+				FormGlobalFn.autoIframe(iframeobj);
+				setTimeout(refreshHeight, 1000);
+			}
+			setTimeout(refreshHeight, 1000);
+			//======================afterEditDataHasInitFn子应用初始化 end======================//
+		</script-->
+	</body>
+
+</html>

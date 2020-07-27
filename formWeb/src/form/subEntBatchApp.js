@@ -1,5 +1,6 @@
-//FormGlobalData
-//FormGlobalFn
+import _FormGlobalData from '_FormGlobalData'
+import _FormGlobalFn from '_FormGlobalFn'
+
 export default class SubEntBatchApp {
 	constructor($button, targetEntId, sourceEntId, formRun) {
 
@@ -11,7 +12,7 @@ export default class SubEntBatchApp {
 		this.$button = $($button);
 		this.$button.off("click");
 		this.$button.click(() => {
-			FormGlobalData.handler = this;
+			_FormGlobalData.handler = this;
 			this.openSelector();
 		});
 		setTimeout(() => {
@@ -25,16 +26,16 @@ export default class SubEntBatchApp {
 				entId: this.sourceEntId
 			}, true);
 		}
-		FormGlobalFn.showWindow4Url(url, width, height, "应用选择", (index, layero) => {
+		_FormGlobalFn.showWindow4Url(url, width, height, "应用选择", (index, layero) => {
 			//获取勾选值
-			let datas = FormGlobalFn.api.list.getData(undefined, layer.getChildFrame("body", index)[0].ownerDocument.defaultView
+			let datas = _FormGlobalFn.api.list.getData(undefined, layer.getChildFrame("body", index)[0].ownerDocument.defaultView
 				.listRun);
 
 			if (datas.length > 0) {
 				this.setData(datas);
-				FormGlobalFn.showClose(index);
+				_FormGlobalFn.showClose(index);
 			} else {
-				FormGlobalFn.showAlert('请勾选记录！', 'w');
+				_FormGlobalFn.showAlert('请勾选记录！', 'w');
 			}
 		});
 	}
@@ -47,6 +48,6 @@ export default class SubEntBatchApp {
 				entId: this.targetEntId
 			});
 		}
-		FormGlobalFn.api.form.subAddRows(_datas, undefined, this.formRun)
+		_FormGlobalFn.api.form.subAddRows(_datas, undefined, this.formRun)
 	}
 }

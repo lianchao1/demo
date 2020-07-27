@@ -29,6 +29,8 @@
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.10.4",
-		"scriptjs": "^2.5.9"
+		"foundation-datepicker": "^1.5.6",
+		"scriptjs": "^2.5.9",
+		"ztree": "^3.5.24"
 	}
 }
