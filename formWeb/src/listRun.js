@@ -170,7 +170,7 @@ export default class ListRun {
 				let updatedata = rowForm.getSubmitData();
 				let _columnsData = updatedata.columnsData;
 
-				for (key in rowData) {
+				for (let key in rowData) {
 					if (_columnsData[key] !== 0 && !_columnsData[key]) {
 						_columnsData[key] = rowData[key];
 					}
