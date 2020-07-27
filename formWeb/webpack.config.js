@@ -9,7 +9,8 @@ const ImageInlineSizeLimit = 10000; //默认limit是10000了，就是让8kb之�
 
 module.exports = {
 	entry: {
-		formEntry: ['@babel/polyfill','./src/formEntry.js']
+		formEntry: ['@babel/polyfill','./src/formEntry.js'],
+		listEntry: ['@babel/polyfill','./src/listEntry.js']
 	},
 	output: {
 		//filename: './dist/[name].js',
@@ -51,6 +52,8 @@ module.exports = {
 				from: path.join(__dirname, 'src/common.js')
 			},{
 				from: path.join(__dirname, 'src/form/form.js')
+			},{
+				from: path.join(__dirname, 'src/list/list.js')
 			}]
 		}),
 		new HtmlWebpackPlugin({
@@ -61,6 +64,15 @@ module.exports = {
 			},
 			hash: true,
 			template: path.join(__dirname, './page/form.html') //模板地址
+		}),
+		new HtmlWebpackPlugin({
+			chunks: ['listEntry'], //添加引入的js,也就是entry中的key
+			filename: 'list.html',
+			minify: {
+				collapseWhitespace: false //折叠空白区域 也就是压缩代码
+			},
+			hash: true,
+			template: path.join(__dirname, './page/list.html') //模板地址
 		})
 	],
 	resolve: {
@@ -73,7 +85,7 @@ module.exports = {
 		publicPath: '/es6/', //内存中生成的编译目标目录(类似应用名)
 		port: 8081,
 		open: true,
-		openPage: 'es6/form.html?optype=create'
+		openPage: 'es6/list.html'
 	},
 	externals: {
 	  jquery: "jQuery",

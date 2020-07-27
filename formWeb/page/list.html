@@ -1,0 +1,61 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title></title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+
+		<!-- 公共对象使用到不能编入 -->
+		<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.19/lodash.js"></script>
+		<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.js"></script>
+
+		<script type="text/javascript" src="./base64.js"></script>
+		<script type="text/javascript" src="./common.js"></script>
+		<script type="text/javascript" src="./form.js"></script>
+		<script type="text/javascript" src="./list.js"></script>
+
+		<!-- 列表 -->
+		<!-- <script type="text/javascript" src="${JS_PATH}/beta/list/list.js"></script>
+		<script type="text/javascript" src="${JS_PATH}/beta/listrun.js"></script>
+		<script type="text/javascript" src="${JS_PATH}/beta/form/form.js"></script>
+		<script type="text/javascript" src="${JS_PATH}/beta/formrun.js"></script> -->
+
+
+
+		<!-- 搜索 -->
+		<!-- <script type="text/javascript" src="${JS_PATH}/beta/list/search.js"></script>
+ -->
+
+
+	</head>
+	<body>
+		<div class="table-body">
+			<div class="left">
+				<div class="search">
+					<input type="text"><i class="iconfont iconsousuo"></i>
+				</div>
+				<!-- ztree 二逼一定要id -->
+				<ul class="ztree" id="leftTreeContainer"></ul>
+			</div>
+			<div class="ajaxForm_main main">
+				<div class="row-search">
+					${searchHtml!}
+				</div>
+				<div class="row-table">
+					
+				</div>
+			</div>
+			<!-- 导入表单 -->
+			<div id="excelImportDiv" style="display:none">
+				<form id="excelImportForm" action="#">
+					<input id="excelImport" no-form-ctrl="true" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+					<button type="button" onclick="FormGlobalFn.api.list.importExcel();">导入</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

@@ -579,6 +579,7 @@ export default class FormRun {
 									}
 								}
 							} catch (e) {
+								console.error(e)
 								console.error("主应用提交，关闭弹窗失败！")
 							}
 						}
@@ -609,7 +610,7 @@ export default class FormRun {
 		_FormGlobalFn.ajaxRequestJson(_this.cfgdataModel.submitUrl, formSubmitData, function(data) {
 			if (data.result) {
 				if (_this.isShowMsg) {
-					parent.FormGlobalFn.showAlert("保存成功！", 's');
+					window.parent.FormGlobalFn.showAlert("保存成功！", 's');
 				}
 				_this.cfgdataModel.opType = "update";
 				_this.data = data.obj;
@@ -627,7 +628,7 @@ export default class FormRun {
 				}
 			} else {
 				if (_this.isShowMsg) {
-					parent.FormGlobalFn.showAlert("保存失败！", 'e');
+					window.parent.FormGlobalFn.showAlert("保存失败！", 'e');
 				}
 				if (typeof callback == "function") {
 					callback(false);
