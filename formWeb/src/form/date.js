@@ -45,7 +45,7 @@ export default class FormDate {
 		}
 	}
 
-	setDatan(data) {
+	setData(data) {
 		if (!data && data !== 0) {
 			$("[id='" + this.id + "']", this.context).val(null);
 			data = null;

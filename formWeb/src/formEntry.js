@@ -9,13 +9,18 @@ import '../css/common.css';
 
 import FormRun from 'formRun'
 
-const entIdRegExp = /\/(?<entId>[^\/]*)\.html/;
-let outEntId = entIdRegExp.exec(window.location.href).groups.entId;
-outEntId = 'entid_TEST_INFO_ZBUYAODONG';
+// const entIdRegExp = /\/(?<entId>[^\/]*)\.html/;
+// let outEntId = entIdRegExp.exec(window.location.href).groups.entId;
+let outEntId = _FormGlobalFn.getQueryString('entId');
 let optype = _FormGlobalFn.getQueryString('optype');
-
+let isOutMobileTemp = _FormGlobalFn.getQueryString('isOutMobileTemp');
+let viewType = _FormGlobalFn.getQueryString('viewType')
+let type = 'form'
+if(viewType === 'true'){
+	type = 'view'
+}
 async function asyncInit() {
-	let _HtmlConfUrl = `/formWeb/beta/transformation/form/${outEntId}?optype=${optype}`;
+	let _HtmlConfUrl = `/formWeb/beta/transformation/${type}/${outEntId}?optype=${optype}&isOutMobileTemp=${isOutMobileTemp}`;
 
 	let HtmlConf = await fetch(_HtmlConfUrl, {
 		method: 'GET'
@@ -54,7 +59,7 @@ async function asyncInit() {
 			_FormGlobalConf.isMobileTemp = appFlag
 
 			//修改页面数据是否加载完毕标识（包括子应用数据）
-			var editDataHasInitFlag = false;
+			_FormGlobalData.editDataHasInitFlag = false;
 			window.formRun = new FormRun();
 			formRun.setCfgData(_EntFormGlobalConf.FormGlobalConf2);
 			formRun.inicfg(entId);

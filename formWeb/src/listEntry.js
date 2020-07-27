@@ -10,9 +10,9 @@ import '../css/common.css';
 import ListRun from 'listRun'
 import FormRun from 'formRun'
 
-const entIdRegExp = /\/(?<entId>[^\/]*)\.html/;
-let outEntId = entIdRegExp.exec(window.location.href).groups.entId;
-outEntId = 'entid_TEST_INFO_ZBUYAODONG';
+// const entIdRegExp = /\/(?<entId>[^\/]*)\.html/;
+// let outEntId = entIdRegExp.exec(window.location.href).groups.entId;
+let outEntId = _FormGlobalFn.getQueryString('entId');
 
 async function asyncInit() {
 	let _HtmlConfUrl = `/formWeb/beta/transformation/list/${outEntId}`;

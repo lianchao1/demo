@@ -102,7 +102,7 @@ export default class FormRun {
 				_FormGlobalFn.ajaxRequestJson(url2, {}, function(ret) {
 					if (ret.result) {
 						//修改页面数据加载完毕（包括子应用数据）
-						editDataHasInitFlag = true;
+						_FormGlobalData.editDataHasInitFlag = true;
 						_this.data = ret.obj;
 						_this.initFormValue();
 					}
