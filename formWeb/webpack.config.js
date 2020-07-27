@@ -54,6 +54,8 @@ module.exports = {
 				from: path.join(__dirname, 'src/form/form.js')
 			},{
 				from: path.join(__dirname, 'src/list/list.js')
+			},{
+				from: path.join(__dirname, 'src/list/search.js')
 			}]
 		}),
 		new HtmlWebpackPlugin({
