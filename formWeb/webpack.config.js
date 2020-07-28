@@ -9,8 +9,10 @@ const ImageInlineSizeLimit = 10000; //默认limit是10000了，就是让8kb之�
 
 module.exports = {
 	entry: {
-		formEntry: ['@babel/polyfill','./src/formEntry.js'],
-		listEntry: ['@babel/polyfill','./src/listEntry.js']
+		formEntry: ['@babel/polyfill','jquery','lodash','layui-layer','./src/base64.js','./src/common.js',
+			'./src/form/form.js','./src/list/list.js','./src/list/search.js','./src/formEntry.js'],
+		listEntry: ['@babel/polyfill','jquery','lodash','layui-layer','./src/base64.js','./src/common.js',
+			'./src/form/form.js','./src/list/list.js','./src/list/search.js','./src/listEntry.js']
 	},
 	output: {
 		//filename: './dist/[name].js',
@@ -39,25 +41,7 @@ module.exports = {
 		new webpack.DefinePlugin({
 		  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
 		}),
-		new webpack.ProvidePlugin({//优先于cdn方式引入
-			'$': 'jquery',
-			jQuery: 'jquery',
-			'_': 'lodash',//由于node_modules中有依赖，打包模块中'_'使用的是node_modules中的代码
-		}),
 		new CleanWebpackPlugin(),
-		new CopyWebpackPlugin({
-			patterns: [{
-				from: path.join(__dirname, 'src/base64.js')
-			},{
-				from: path.join(__dirname, 'src/common.js')
-			},{
-				from: path.join(__dirname, 'src/form/form.js')
-			},{
-				from: path.join(__dirname, 'src/list/list.js')
-			},{
-				from: path.join(__dirname, 'src/list/search.js')
-			}]
-		}),
 		new HtmlWebpackPlugin({
 			chunks: ['formEntry'], //添加引入的js,也就是entry中的key
 			filename: 'form.html',
@@ -87,15 +71,9 @@ module.exports = {
 		publicPath: '/es6/', //内存中生成的编译目标目录(类似应用名)
 		port: 8081,
 		open: true,
-		openPage: 'es6/list.html'
+		openPage: 'es6/list.html?entId=entid_TEST_INFO_ZBUYAODONG'
 	},
 	externals: {
-	  jquery: "jQuery",
-	  '_': 'lodash',
-	  base64:'base64',
-	  _FormGlobalData:'FormGlobalData',
-	  _FormGlobalConf:'FormGlobalConf',
-	  _FormGlobalFn:'FormGlobalFn',
-	  _EntFormGlobalConf:'FormGlobalConf2'//通过url请求获取的
+		
 	}
 }

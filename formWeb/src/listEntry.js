@@ -1,9 +1,5 @@
 import $script from 'scriptjs'
 import cssLoad from 'cssLoad'
-import _FormGlobalData from '_FormGlobalData'
-import _FormGlobalFn from '_FormGlobalFn'
-import _FormGlobalConf from '_FormGlobalConf'
-import _EntFormGlobalConf from '_EntFormGlobalConf'
 
 import '../css/common.css';
 
@@ -12,7 +8,7 @@ import FormRun from 'formRun'
 
 // const entIdRegExp = /\/(?<entId>[^\/]*)\.html/;
 // let outEntId = entIdRegExp.exec(window.location.href).groups.entId;
-let outEntId = _FormGlobalFn.getQueryString('entId');
+let outEntId = FormGlobalFn.getQueryString('entId');
 
 async function asyncInit() {
 	let _HtmlConfUrl = `/formWeb/beta/transformation/list/${outEntId}`;
@@ -42,30 +38,29 @@ async function asyncInit() {
 	]);
 
 	let jsUrls = [`/formWeb/beta/formrun/${entId}/entCfg.js?ctrlPrefix=ListR_`, `/formWeb/jsCustom/${entId}/ListR_/file.js`];
-	if(searchFlag) jsUrls.push(`./search.js`);
 	$script(jsUrls, function(HtmlConf) {
 
-		_EntFormGlobalConf.FormGlobalConf2 = FormGlobalConf2
+		FormGlobalConf.formGlobalConf  = FormGlobalConf2
 		FormGlobalConf2 = null 
 		
 		{
-			_FormGlobalConf.isMobileTemp = appFlag
+			FormGlobalConf.isMobileTemp = appFlag
 
 			if (searchFlag) {
 				$('div.row-search').html(searchHtml);
 				window.searchRun = new FormRun();
-				_FormGlobalFn.search.inicfg(entId, _EntFormGlobalConf.FormGlobalConf2, function(data) {
-					_FormGlobalData.searchInitData = data;
+				FormGlobalFn.search.inicfg(entId, FormGlobalConf.formGlobalConf, function(data) {
+					FormGlobalData.searchInitData = data;
 				});
 			} else {
-				_FormGlobalData.searchInitData = {
+				FormGlobalData.searchInitData = {
 					entId: entId
 				}
 			}
 			window.listRun = new ListRun();
-			listRun.setCfgData(_EntFormGlobalConf.FormGlobalConf2);
+			listRun.setCfgData(FormGlobalConf.formGlobalConf);
 			listRun.searchFlag = searchFlag;
-			listRun.searchCacheData = _FormGlobalData.searchInitData; //初始查询条件
+			listRun.searchCacheData = FormGlobalData.searchInitData; //初始查询条件
 			listRun.initevent();
 			listRun.initBtn();
 		}

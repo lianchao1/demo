@@ -1,13 +1,10 @@
-import _FormGlobalData from '_FormGlobalData'
-import _FormGlobalFn from '_FormGlobalFn'
-
 export default class FormMap {
 	constructor(fieldConf, contextPath, context) {
 
 		this.contextPath = contextPath;
 		this.context = context || document;
 		this.fieldConf = fieldConf;
-		this.id = _FormGlobalFn.eleId(fieldConf);
+		this.id = FormGlobalFn.eleId(fieldConf);
 
 		//是否双字段
 		this.twoFieldFlag = false;
@@ -25,7 +22,7 @@ export default class FormMap {
 		this.$button.off("click");
 		let _this = this;
 		this.$button.click(function(){
-			_FormGlobalData.handler = _this;
+			FormGlobalData.handler = _this;
 			_this.openSelector();
 		});
 	}
@@ -56,7 +53,7 @@ export default class FormMap {
 	}
 	//用于openSelector后回填数据到输入框
 	setData(data) {
-		_FormGlobalData.handler = null;
+		FormGlobalData.handler = null;
 
 		if (!!data) {
 			let lng = null,lat = null;

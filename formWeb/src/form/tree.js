@@ -1,4 +1,3 @@
-import _FormGlobalFn from '_FormGlobalFn'
 import 'ztree'
 import fuzzySearch from 'ztree-fuzzysearch'
 /**
@@ -36,7 +35,7 @@ export default class FormTree {
 		}
 
 		//树真实值（input 掩藏）
-		this.id = _FormGlobalFn.eleId(fieldConf);
+		this.id = FormGlobalFn.eleId(fieldConf);
 		this.$id = $("[id='" + this.id + "']", this.context);
 		this.ztreeId = this.id + "_ztree";
 		this.filterId = this.id + "_filter";
@@ -432,7 +431,7 @@ export default class FormTree {
 		if (this.type == 'tree') return;
 
 		let treeTextUrl = this.contextPath + "/beta/dataService/treeText?treeId=" + this.treeId;
-		_FormGlobalFn.ajaxRequestJson(treeTextUrl, {
+		FormGlobalFn.ajaxRequestJson(treeTextUrl, {
 			value: data,
 			checked: this.checked != 'nocheck',
 			allCheckFlag: this.allCheckFlag

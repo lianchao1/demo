@@ -1,5 +1,3 @@
-import _FormGlobalFn from '_FormGlobalFn'
-
 export default class FormLeft2Right {
 	constructor(fieldConf, data, formRun) {
 
@@ -9,7 +7,7 @@ export default class FormLeft2Right {
 		let height = fieldConf.ctrlHeight || '200px';
 		this.context = formRun.$context;
 		this.formRun = formRun;
-		this.id = _FormGlobalFn.eleId(fieldConf);
+		this.id = FormGlobalFn.eleId(fieldConf);
 		this.leftId = "left_" + this.id;
 
 		this.btnWidth = 50;

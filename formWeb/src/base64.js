@@ -109,3 +109,6 @@ function Base64() {
     	return this.decode(_input);
     }
 }
+
+//base64全局对象
+base64 = new Base64();

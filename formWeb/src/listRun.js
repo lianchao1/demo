@@ -1,7 +1,3 @@
-import _FormGlobalData from '_FormGlobalData'
-import _FormGlobalFn from '_FormGlobalFn'
-import _FormGlobalConf from '_FormGlobalConf'
-
 import MyPaging from './thirdParty/MyPaging/MyPaging.js'
 import './thirdParty/MyPaging/MyPaging.css'
 
@@ -107,9 +103,9 @@ export default class ListRun {
 	 */
 	initBtn() {
 		//表头按钮
-		_FormGlobalFn.initBtn(this.cfgdataModel.btnConfs, "list");
+		FormGlobalFn.initBtn(this.cfgdataModel.btnConfs, "list");
 		//列表按钮
-		_FormGlobalFn.initListBtn(this.cfgdataModel.optBtnConfs);
+		FormGlobalFn.initListBtn(this.cfgdataModel.optBtnConfs);
 	}
 
 	/**
@@ -239,7 +235,7 @@ export default class ListRun {
 			searchParamItems: searchParam.searchParamItems
 		};
 
-		_FormGlobalFn.ajaxRequestJson(this.cfgdataModel.dataUrl, data, callback);
+		FormGlobalFn.ajaxRequestJson(this.cfgdataModel.dataUrl, data, callback);
 	};
 	/**
 	 * 获取列表数据
@@ -279,9 +275,9 @@ export default class ListRun {
 	 */
 	showCreateUpdateViewWindow4Url(type, url, width, height, title, noYes) {
 		let _this = this;
-		return _FormGlobalFn.showWindow4Url(url, width, height, title, function(index, layero) {
+		return FormGlobalFn.showWindow4Url(url, width, height, title, function(index, layero) {
 			if (!_this.cfgdata.subEntFlag) { //主应用
-				if (!_FormGlobalFn.d2sClick()) {
+				if (!FormGlobalFn.d2sClick()) {
 					return false;
 				}
 
@@ -290,12 +286,12 @@ export default class ListRun {
 				} else if (_this.cfgdata.isMobileTemp && 'update' === type) { //app列表且修改(不刷新，修改列)，新增不做处理					
 					$(layero).find("iframe")[0].contentWindow.FormGlobalFn.api.form.submitForm(index,
 						function(data, index) {
-							_FormGlobalFn.showClose(index); //关闭本窗口
+							FormGlobalFn.showClose(index); //关闭本窗口
 							_this.updateRow4App(data);
 						}, false);
 				} else if (_this.cfgdata.isMobileTemp && 'create' === type) { //app列表且新增只关闭窗口不做处理	
 					$(layero).find("iframe")[0].contentWindow.FormGlobalFn.api.form.submitForm(index, function(data, index) {
-						_FormGlobalFn.showClose(index); //关闭本窗口
+						FormGlobalFn.showClose(index); //关闭本窗口
 					}, false);
 				}
 
@@ -304,7 +300,7 @@ export default class ListRun {
 				$(layero).find("iframe")[0].contentWindow.FormGlobalFn.api.form.getData(function(data) {
 					if (data) {
 						_this.updateOrAdd(data);
-						_FormGlobalFn.showClose(index);
+						FormGlobalFn.showClose(index);
 					}
 				});
 			}
@@ -359,7 +355,7 @@ export default class ListRun {
 		if (!keyValueOrTrGroupId && keyValueOrTrGroupId != 0) {
 			let updateDatas = this.getData();
 			if (updateDatas.length != 1) {
-				_FormGlobalFn.showAlert('请勾选一个需要修改的数据！', 'w');
+				FormGlobalFn.showAlert('请勾选一个需要修改的数据！', 'w');
 				return false;
 			}
 			keyValueOrTrGroupId = updateDatas[0][this.cfgdataModel.keyName]
@@ -435,11 +431,11 @@ export default class ListRun {
 			} else {
 				delDatas = _this.getData();
 				if (delDatas.length == 0) {
-					_FormGlobalFn.showAlert('请勾选需要删除的数据！', 'w');
+					FormGlobalFn.showAlert('请勾选需要删除的数据！', 'w');
 					return false;
 				}
 			}
-			_FormGlobalFn.showConfirm("是否删除数据？", function() {
+			FormGlobalFn.showConfirm("是否删除数据？", function() {
 				let delKeyValues = [];
 				for (let i = 0; i < delDatas.length; i++) {
 					delKeyValues.push(delDatas[i]['I_INNER_KEYVALUE'] || delDatas[i][_this.cfgdataModel.keyName]);
@@ -452,7 +448,7 @@ export default class ListRun {
 				}
 
 				//请求后端删除
-				_FormGlobalFn.ajaxRequestJson(_this.cfgdataModel.delUrl, {
+				FormGlobalFn.ajaxRequestJson(_this.cfgdataModel.delUrl, {
 					entId: _this.cfgdata.mainEntId,
 					delKeyValues: delKeyValues
 				}, function(data) {
@@ -467,9 +463,9 @@ export default class ListRun {
 						} else { // 普通列表删除行后刷新列表
 							_this.refresh();
 						}
-						_FormGlobalFn.showAlert('删除数据成功！', 's');
+						FormGlobalFn.showAlert('删除数据成功！', 's');
 					} else {
-						_FormGlobalFn.showAlert('删除数据失败！', 'e');
+						FormGlobalFn.showAlert('删除数据失败！', 'e');
 					}
 				});
 			}, "w");
@@ -486,11 +482,11 @@ export default class ListRun {
 					}
 				});
 				if (trGroupIds.length == 0) {
-					_FormGlobalFn.showAlert('请勾选需要删除的数据！', 'w');
+					FormGlobalFn.showAlert('请勾选需要删除的数据！', 'w');
 					return false;
 				}
 			}
-			_FormGlobalFn.showConfirm("是否删除数据？", function() {
+			FormGlobalFn.showConfirm("是否删除数据？", function() {
 				//子应用删除数据之前，将删除的数据保存起来，以供后端判断crud操作
 				for (let i = 0; i < trGroupIds.length; i++) {
 					let index = _this.getDataBytrGroupId(trGroupIds[i])
@@ -500,7 +496,7 @@ export default class ListRun {
 				}
 
 				_this.delRows(trGroupIds); //删除页面上的列表展示
-				_FormGlobalFn.showAlert('删除数据成功！', 's');
+				FormGlobalFn.showAlert('删除数据成功！', 's');
 			}, "w");
 		}
 	}
@@ -509,9 +505,9 @@ export default class ListRun {
 	loadData() {
 		let _this = this;
 		var searchFn = function(searchParam) {
-			let loadId = _FormGlobalFn.showLoad();
+			let loadId = FormGlobalFn.showLoad();
 			_this.queryDatas(_this.page.size, _this.page.current, searchParam, function(data) {
-				_FormGlobalFn.showClose(loadId);
+				FormGlobalFn.showClose(loadId);
 				if (data.result) {
 					var page = data.obj;
 					if (page.list.length == 0 && _this.current > 1) {
@@ -529,8 +525,8 @@ export default class ListRun {
 
 
 						//搜索后执行
-						if (typeof _FormGlobalFn.callback.search.afterSubmit == "function") {
-							_FormGlobalFn.callback.search.afterSubmit(page);
+						if (typeof FormGlobalFn.callback.search.afterSubmit == "function") {
+							FormGlobalFn.callback.search.afterSubmit(page);
 						}
 					}
 				}
@@ -775,7 +771,7 @@ export default class ListRun {
 						fieldDataTypeId: bindOutFieldDataTypeId
 					};
 
-					_FormGlobalFn.api.search.search(treeData);
+					FormGlobalFn.api.search.search(treeData);
 				}
 			}
 			let treeUrl = _this.cfgdata.contextPath + "/beta/dataService/tree";

@@ -1,7 +1,3 @@
-import _FormGlobalData from '_FormGlobalData'
-import _FormGlobalFn from '_FormGlobalFn'
-import _FormGlobalConf from '_FormGlobalConf'
-
 import FormFile from './form/file'
 import FormDate from './form/date'
 import FormMap from './form/map'
@@ -70,8 +66,8 @@ export default class FormRun {
 	 * ctrlPrefix:列表传入类型（主要后端获取缓存用的）
 	 */
 	inicfg(entid, type) {
-		let optype = _FormGlobalFn.getQueryString("optype");
-		let viewType = _FormGlobalFn.getQueryString("viewType");
+		let optype = FormGlobalFn.getQueryString("optype");
+		let viewType = FormGlobalFn.getQueryString("viewType");
 		//明细报表通过修改表单来实现
 		if (viewType == "true" && type !== "list") {
 			this.viewType = true;
@@ -94,15 +90,15 @@ export default class FormRun {
 					this.subFormRunInitedFlag = true;
 				}
 			} else {
-				let mkfn = _FormGlobalFn.getQueryString("mkfn");
-				let mkfv = _FormGlobalFn.getQueryString("mkfv");
+				let mkfn = FormGlobalFn.getQueryString("mkfn");
+				let mkfv = FormGlobalFn.getQueryString("mkfv");
 				let url2 = this.cfgdata.contextPath + "/beta/dataService/queryFormData?entid=" + entid + "&mkfn=" + mkfn +
 					"&mkfv=" + mkfv;
 				let _this = this;
-				_FormGlobalFn.ajaxRequestJson(url2, {}, function(ret) {
+				FormGlobalFn.ajaxRequestJson(url2, {}, function(ret) {
 					if (ret.result) {
 						//修改页面数据加载完毕（包括子应用数据）
-						_FormGlobalData.editDataHasInitFlag = true;
+						FormGlobalData.editDataHasInitFlag = true;
 						_this.data = ret.obj;
 						_this.initFormValue();
 					}
@@ -112,14 +108,14 @@ export default class FormRun {
 			this.initFormValue();
 			if (this.cfgdata.subEntFlag) {
 				//子应用
-				let data = _FormGlobalFn.getQueryString("data");
-				let trGroupId = _FormGlobalFn.getQueryString("trGroupId");
-				let trGroupCreateOrUpdate = _FormGlobalFn.getQueryString("trGroupCreateOrUpdate");
+				let data = FormGlobalFn.getQueryString("data");
+				let trGroupId = FormGlobalFn.getQueryString("trGroupId");
+				let trGroupCreateOrUpdate = FormGlobalFn.getQueryString("trGroupCreateOrUpdate");
 				if (data && trGroupId != "") {
 					this.trGroupId = trGroupId;
 					this.trGroupCreateOrUpdate = trGroupCreateOrUpdate;
 					data = JSON.parse(base64.decodeUrl(data));
-					_FormGlobalFn.api.form.setData(data);
+					FormGlobalFn.api.form.setData(data);
 				}
 			}
 		}
@@ -129,7 +125,7 @@ export default class FormRun {
 	 * 自定义按钮初始化
 	 */
 	initBtn() {
-		_FormGlobalFn.initBtn(this.cfgdataModel.btnConfs, "form");
+		FormGlobalFn.initBtn(this.cfgdataModel.btnConfs, "form");
 	}
 
 	/**
@@ -162,7 +158,7 @@ export default class FormRun {
 						fieldRelaVo: fieldRela,
 						formdata: formData,
 					};
-					_FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
+					FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 						if (data.result) {
 							_this.initFieldHtml(fieldConf, data.obj);
 						}
@@ -176,7 +172,7 @@ export default class FormRun {
 						fieldRelaVo: fieldRela,
 						formdata: formData,
 					};
-					_FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
+					FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 						if (data.result) {
 							let val = data.obj;
 							if (fieldRela.initJs != "") {
@@ -215,14 +211,14 @@ export default class FormRun {
 					fieldRelaVo: fieldRela,
 					formdata: formData,
 				};
-				let id = _FormGlobalFn.eleId(fieldConf);
-				if (_FormGlobalData.dict[id] && !(_this.cfgdataModel.opType == "create" && fieldConf.ctrlTypeId == "input")) {
+				let id = FormGlobalFn.eleId(fieldConf);
+				if (FormGlobalData.dict[id] && !(_this.cfgdataModel.opType == "create" && fieldConf.ctrlTypeId == "input")) {
 					/*非新增时获取oracle 序列的场景*/
-					_this.initFieldHtml(fieldConf, _FormGlobalData.dict[id]);
+					_this.initFieldHtml(fieldConf, FormGlobalData.dict[id]);
 				} else {
 					if (_this.cfgdataModel.opType == "create" && fieldConf.ctrlTypeId == "input") {
 						/*新增时获取oracle 序列的场景*/
-						_FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
+						FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 							if (data.result) {
 								let $id = $("[id='" + id + "']", _this.$context);
 								$id.val(data.obj[0]["value"]);
@@ -230,10 +226,10 @@ export default class FormRun {
 						});
 					} else {
 						/*非新增时获取oracle 序列的场景*/
-						_FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
+						FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 							if (data.result) {
 								if (data.cacheFlag) {
-									_FormGlobalData.dict[id] = data.obj;
+									FormGlobalData.dict[id] = data.obj;
 								}
 								_this.initFieldHtml(fieldConf, data.obj);
 							}
@@ -257,19 +253,19 @@ export default class FormRun {
 				datajson.fieldId = fieldRela.id;
 
 				//没有缓存的可能性吧。。。。。
-				let id = _FormGlobalFn.eleId(fieldConf);
-				if (_FormGlobalData.dict[id]) {
-					let val = _FormGlobalData.dict[id];
+				let id = FormGlobalFn.eleId(fieldConf);
+				if (FormGlobalData.dict[id]) {
+					let val = FormGlobalData.dict[id];
 					if (fieldRela.initJs != "") {
 						eval("val=" + val);
 					}
 					_this.initSingleFormValue(fieldConf, val);
 
 				} else {
-					_FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
+					FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 						if (data.result) {
 							if (data.cacheFlag) {
-								_FormGlobalData.dict[id] = data.obj;
+								FormGlobalData.dict[id] = data.obj;
 							}
 							let val = data.obj;
 							if (fieldRela.initJs != "") {
@@ -381,7 +377,7 @@ export default class FormRun {
 				}
 				//uuid
 				if (fieldConf.valueType == '7') { //"7" :UUID (系统生成唯一标识)
-					fieldConf.defaultValue = _FormGlobalFn.uuid();
+					fieldConf.defaultValue = FormGlobalFn.uuid();
 				}
 
 				_this.initSingleFormValue(fieldConf, fieldConf.defaultValue);
@@ -472,8 +468,8 @@ export default class FormRun {
 						asynValidateConfs[asynValidateConfs.length] = validateConf;
 						break;
 					default:
-						if (typeof _FormGlobalFn.check[validateConf.validateType] == "function") {
-							result = _FormGlobalFn.check[validateConf.validateType](resultObj.value);
+						if (typeof FormGlobalFn.check[validateConf.validateType] == "function") {
+							result = FormGlobalFn.check[validateConf.validateType](resultObj.value);
 						}
 						break;
 				}
@@ -500,7 +496,7 @@ export default class FormRun {
 					};
 					datajson.formdata = _this.getFormDataMap();
 					datajson.fieldId = $thisObj.attr("id");
-					_FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
+					FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 						if (data.result) {
 							let val = data.obj;
 							try {
@@ -557,24 +553,24 @@ export default class FormRun {
 							callback(result, showIndex);
 						}
 						//保存后执行
-						if (typeof _FormGlobalFn.callback.form.afterSubmit == "function") {
-							_FormGlobalFn.callback.form.afterSubmit(result, showIndex);
+						if (typeof FormGlobalFn.callback.form.afterSubmit == "function") {
+							FormGlobalFn.callback.form.afterSubmit(result, showIndex);
 						}
 
 						if (result && window.top != window) {
 							try {
 								let parent = window.parent; //获取父窗口
 								if (parent.FormGlobalFn) {
-									if (_FormGlobalConf.refresh4SubmitFlag) { //提交后是否刷新列表
+									if (FormGlobalConf.refresh4SubmitFlag) { //提交后是否刷新列表
 										parent.FormGlobalFn.api.list.refresh();
 									}
-									_FormGlobalConf.refresh4SubmitFlag = true;
+									FormGlobalConf.refresh4SubmitFlag = true;
 									if (_this.isShowMsg) {
 										parent.FormGlobalFn.showAlert('保存成功！', 's');
 									}
 
 									//回调中可能存在异步请求需要等待异步结果，不能一味关闭页面
-									if (typeof callback != "function" && typeof _FormGlobalFn.callback.form.afterSubmit != "function") {
+									if (typeof callback != "function" && typeof FormGlobalFn.callback.form.afterSubmit != "function") {
 										parent.FormGlobalFn.showClose(showIndex); //关闭本窗口
 									}
 								}
@@ -602,12 +598,12 @@ export default class FormRun {
 		formSubmitData.ctrlPrefix = ctrlPrefix || (this.cfgdata.isMobileTemp ? 'app_AjaxF_' : 'AjaxF_');
 
 		//保存前执行
-		if (typeof _FormGlobalFn.callback.form.beforeSubmit == "function") {
-			let execFlag = _FormGlobalFn.callback.form.beforeSubmit(formSubmitData);
+		if (typeof FormGlobalFn.callback.form.beforeSubmit == "function") {
+			let execFlag = FormGlobalFn.callback.form.beforeSubmit(formSubmitData);
 			if (!execFlag) return;
 		}
 
-		_FormGlobalFn.ajaxRequestJson(_this.cfgdataModel.submitUrl, formSubmitData, function(data) {
+		FormGlobalFn.ajaxRequestJson(_this.cfgdataModel.submitUrl, formSubmitData, function(data) {
 			if (data.result) {
 				if (_this.isShowMsg) {
 					window.parent.FormGlobalFn.showAlert("保存成功！", 's');
@@ -690,7 +686,7 @@ export default class FormRun {
 
 		let result = false;
 		let value = null;
-		let id = _FormGlobalFn.eleId(fieldConf);
+		let id = FormGlobalFn.eleId(fieldConf);
 
 		let handlerId = id;
 		let textId = id + "_text";
@@ -789,17 +785,17 @@ export default class FormRun {
 			return;
 		}
 		let context = _this.$context;
-		let id = _FormGlobalFn.eleId(fieldConf);
+		let id = FormGlobalFn.eleId(fieldConf);
 		let handlerId = id;
 		let $id = $("[id='" + id + "']", context); //异步中必须用let
 		let $iddict = $("[id='" + id + "dict']", context);
 		let $treediv = $("[treediv='" + id + "']", context);
 
-		_FormGlobalFn.enabled($id);
+		FormGlobalFn.enabled($id);
 		if (fieldConf.unableAdd && 'create' == _this.cfgdataModel.opType) {
-			_FormGlobalFn.disabled($id);
+			FormGlobalFn.disabled($id);
 		} else if (fieldConf.unableUpdate && 'update' == _this.cfgdataModel.opType) {
-			_FormGlobalFn.disabled($id);
+			FormGlobalFn.disabled($id);
 		}
 
 		switch (fieldConf.ctrlTypeId) {
@@ -1026,7 +1022,7 @@ export default class FormRun {
 		let context = this.$context;
 		let result = false,
 			value = null;
-		let id = _FormGlobalFn.eleId(fieldConf);
+		let id = FormGlobalFn.eleId(fieldConf);
 		let handlerId = id;
 		let $id = $("[id='" + id + "']", context);
 		let $iddict = $("[id='" + id + "dict']", context);

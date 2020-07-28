@@ -1,4 +1,3 @@
-import _FormGlobalFn from '_FormGlobalFn'
 import FormTree from './form/tree'
 /**
  * 树子应用
@@ -22,14 +21,14 @@ export default class TreeRun {
 		let fieldConf = {
 			ownEntId: subEntConf.mainEntId,
 			fieldName: "TREE_SUB_ENT",
-			uuid: _FormGlobalFn.uuid(),
+			uuid: FormGlobalFn.uuid(),
 			extendObj: subEntConf.treeSubEntConf.treeConf,
 			ctrlTypeId: "tree" //树-直接显示
 		};
 		fieldConf.extendObj.checked = '1'; //0:单选,1:多选,2:单勾选
 		fieldConf.extendObj.allCheckFlag = false;
 
-		this.id = _FormGlobalFn.eleId(fieldConf);
+		this.id = FormGlobalFn.eleId(fieldConf);
 		$(this.$context).append('<div class="treeGroup"><input type="hidden" id="' + this.id + '" entid="' + this.cfgdata.mainEntId +
 			'"/><ul class="ztree" id="' + this.id + '_ztree"></ul></div>');
 
@@ -67,7 +66,7 @@ export default class TreeRun {
 			let addSubEntTreeFieldData = {
 				columnsData: {
 					"_INNER_CREATE_OR_UPDATE": 'create',
-					"I_INNER_KEYVALUE": _FormGlobalFn.uuid() //前端不判断是否是自增，提供主键值uuid
+					"I_INNER_KEYVALUE": FormGlobalFn.uuid() //前端不判断是否是自增，提供主键值uuid
 				}
 			}
 			addSubEntTreeFieldData.columnsData[this.cfgdata.treeSubEntConf.subEntTreeField] = addSubEntTreeFieldValue[i];
