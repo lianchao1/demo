@@ -7,3 +7,5 @@ document.body.appendChild(bigImg);
 
 document.write('<h1>Hello World</h1>');
 new Print();
+xbtx.b=1;
+setInterval(function(){console.log(xbtx.b)},5000)

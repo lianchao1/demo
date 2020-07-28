@@ -10,7 +10,7 @@ const ImageInlineSizeLimit = 10000; //默认limit是10000了，就是让8kb之�
 module.exports = {
 	entry: {
 		main: ['@babel/polyfill','./src/main.js'],
-		page1: ['@babel/polyfill','./src/page1.js'],
+		page1: ['@babel/polyfill','page1-global.js','./css/page1-global.css','./src/page1.js'],
 	},
 	output: {
 		//filename: './dist/[name].js',
