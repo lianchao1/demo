@@ -308,9 +308,9 @@ export default class ListRun {
 	}
 	openCreate(width, height, title) {
 		var url = /* this.cfgdata.contextPath + */
-			'.#{appPrefix}form.html?entId=#{entId}&optype=create&isOutMobileTemp=#{isOutMobileTemp}';
+			'./#{appPrefix}form.html?entId=#{entId}&optype=create&isOutMobileTemp=#{isOutMobileTemp}';
 		url = url.format({
-			appPrefix: this.cfgdata.isMobileTemp ? "/app" : "",
+			appPrefix: this.cfgdata.isMobileTemp ? "app" : "",
 			entId: this.cfgdata.mainEntId,
 			isOutMobileTemp: this.isOutMobileTemp
 		});
@@ -324,9 +324,9 @@ export default class ListRun {
 
 		let url = '';
 		url = /* this.cfgdata.contextPath + */
-			'.#{appPrefix}form.html?entId=#{entId}&viewType=true&isOutMobileTemp=#{isOutMobileTemp}&mkfn=#{mkfn}&mkfv=#{mkfv}';
+			'./#{appPrefix}form.html?entId=#{entId}&viewType=true&isOutMobileTemp=#{isOutMobileTemp}&mkfn=#{mkfn}&mkfv=#{mkfv}';
 		url = url.format({
-			appPrefix: this.cfgdata.isMobileTemp ? "/app" : "",
+			appPrefix: this.cfgdata.isMobileTemp ? "app" : "",
 			entId: this.cfgdata.mainEntId,
 			isOutMobileTemp: this.isOutMobileTemp,
 			mkfn: this.cfgdataModel.keyName,
@@ -363,16 +363,16 @@ export default class ListRun {
 		let url = '';
 		if (!this.cfgdata.subEntFlag) { //主应用
 			url = /* this.cfgdata.contextPath + */
-				'.#{appPrefix}form.html?entId=#{entId}&optype=update&mkfn=#{mkfn}&mkfv=#{mkfv}';
+				'./#{appPrefix}form.html?entId=#{entId}&optype=update&mkfn=#{mkfn}&mkfv=#{mkfv}';
 			url = url.format({
-				appPrefix: this.cfgdata.isMobileTemp ? "/app" : "",
+				appPrefix: this.cfgdata.isMobileTemp ? "app" : "",
 				entId: this.cfgdata.mainEntId,
 				mkfn: this.cfgdataModel.keyName,
 				mkfv: keyValueOrTrGroupId
 			});
 		} else if (this.cfgdata.subEntFlag && !!this.pform) { //子应用
 			url = /* this.cfgdata.contextPath + */
-				'.#{appPrefix}form.html?entId=#{entId}&optype=create&isOutMobileTemp=#{isOutMobileTemp}&trGroupId=#{trGroupId}&trGroupCreateOrUpdate=#{trGroupCreateOrUpdate}&data=#{data}';
+				'./#{appPrefix}form.html?entId=#{entId}&optype=create&isOutMobileTemp=#{isOutMobileTemp}&trGroupId=#{trGroupId}&trGroupCreateOrUpdate=#{trGroupCreateOrUpdate}&data=#{data}';
 			let trGroupId = keyValueOrTrGroupId;
 			let index = this.getDataBytrGroupId(trGroupId);
 			let rowData = this.datas[index] || {};
@@ -395,7 +395,7 @@ export default class ListRun {
 			}
 			var _data = base64.encodeUrl(JSON.stringify(data));
 			url = url.format({
-				appPrefix: this.cfgdata.isMobileTemp ? "/app" : "",
+				appPrefix: this.cfgdata.isMobileTemp ? "app" : "",
 				entId: this.cfgdata.mainEntId,
 				isOutMobileTemp: this.isOutMobileTemp,
 				trGroupId: trGroupId,
