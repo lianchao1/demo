@@ -62,6 +62,15 @@ module.exports = {
 			template: path.join(__dirname, './page/form.html') //模板地址
 		}),
 		new HtmlWebpackPlugin({
+			chunks: ['formEntry'], //添加引入的js,也就是entry中的key
+			filename: 'appform.html',
+			minify: {
+				collapseWhitespace: false //折叠空白区域 也就是压缩代码
+			},
+			hash: true,
+			template: path.join(__dirname, './page/app_form.html') //模板地址
+		}),
+		new HtmlWebpackPlugin({
 			chunks: ['listEntry'], //添加引入的js,也就是entry中的key
 			filename: 'list.html',
 			minify: {
@@ -72,7 +81,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			chunks: ['appListEntry'], //添加引入的js,也就是entry中的key
-			filename: 'appList.html',
+			filename: 'applist.html',
 			minify: {
 				collapseWhitespace: false //折叠空白区域 也就是压缩代码
 			},

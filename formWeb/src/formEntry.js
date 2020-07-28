@@ -7,8 +7,8 @@ import TreeRun from 'treeRun'
 
 // const entIdRegExp = /\/(?<entId>[^\/]*)\.html/;
 // let outEntId = entIdRegExp.exec(window.location.href).groups.entId;
-const appRegExp = /(?<app>\/app)\//;
-let app = appRegExp.exec(window.location.href).groups.app;
+const appRegExp = /(?<app>\/app)form\.html/;
+let app = appRegExp.exec(window.location.href)?.groups?.app|| '';
 let outEntId = FormGlobalFn.getQueryString('entId');
 let optype = FormGlobalFn.getQueryString('optype');
 let isOutMobileTemp = FormGlobalFn.getQueryString('isOutMobileTemp');
