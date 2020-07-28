@@ -2,144 +2,42 @@
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-  <title>${title!}</title>
-  <!-- <meta http-equiv="content-type" content="text/html; charset=utf-8"> -->
-  
-	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<head>
+		<title>${title!}</title>
+		<!-- <meta http-equiv="content-type" content="text/html; charset=utf-8"> -->
 
-  <link rel="stylesheet" href="${CONTEXT_PATH}/newForm${styleCode}/css/common.css" type="text/css" />
-  <link rel="stylesheet" href="${CONTEXT_PATH}/newForm${styleCode}/css/table.css" type="text/css" />
-  <link rel="stylesheet" href="${CONTEXT_PATH}/newForm${styleCode}/css/theme/skin.css" type="text/css" />
-  <link rel="stylesheet" href="${CONTEXT_PATH}/newForm${styleCode}/css/iconfont/iconfont.css" type="text/css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <link rel="stylesheet" href="${JS_PATH}/mui/css/mui.min.css" type="text/css" />
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
 
+		<!-- ??? -->
+		<script src="/formWeb/resources/js/jquery/jquery-1.11.1.js"></script>
+		<script src="/formWeb/resources/js/mui/js/mui.min.js"></script>
+		
+	</head>
+	<body>
 
-  <script type="text/javascript" src="${JS_PATH}/lodash/lodash.js"></script>
-  <script type="text/javascript" src="${JS_PATH}/jquery/jquery-1.11.1.js"></script>
-  <script type="text/javascript" src="${JS_PATH}/beta/base64.js"></script>
-  <script type="text/javascript" src="${JS_PATH}/mui/js/mui.min.js"></script>
+		<header class="mui-bar mui-bar-nav" style="display: flex;">
+			<div id="listHtml" class="" style="flex: 1;"></div>
+			<span id="searchFlag" class="mui-icon mui-icon-search hide"></span>
+		</header>
+		<div id="searchHtml" class="filter-container">
+			
+		</div>
 
-  <!-- ztree 资源引入 -->
-  <link href="${CSS_PATH}/branch/formdesign/default/components/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+		<div class="mui-content">
+			<!--下拉刷新容器-->
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="padding-top: 44px;">
+				<div class="mui-scroll">
+					<!--数据列表-->
+					<div class="mui-table-view table-container">
 
-  <script src="${JS_FRAME_PATH}/zTree_v3/js/jquery.ztree.core-3.5.26.js"></script>
-  <script src="${JS_FRAME_PATH}/zTree_v3/js/jquery.ztree.exedit-3.5.26.min.js"></script>
-  <script src="${JS_FRAME_PATH}/zTree_v3/js/jquery.ztree.excheck-3.5.26.min.js"></script>
-  <script src="${JS_FRAME_PATH}/zTree_v3/js/jquery.ztree.exhide-3.5.26.min.js"></script>
-  <script src="${JS_FRAME_PATH}/zTree_v3/js/fuzzysearch.js"></script>
-
-  <!-- 引入layer-->
-  <script src="${JS_PATH}/layer/layer.js" type="text/javascript"></script>
-
-  <script type="text/javascript" src="${JS_PATH}/beta/common.js"></script>
-  <script type="text/javascript" src="${CONTEXT_PATH}/beta/formrun/${entid}/entCfg.js?v=${uuid!'1'}&ctrlPrefix=app_ListR_"></script>
-
-
-  <!-- 高级表单 -->
-  <link rel="stylesheet" href="${CONTEXT_PATH}/newForm/css/form.css" type="text/css" />
-  <link rel="stylesheet" href="${JS_PATH}/foundation-datepicker-master/font-awesome-4.7.0/css/font-awesome.css"
-    type="text/css" />
-  <link rel="stylesheet" href="${JS_PATH}/foundation-datepicker-master/css/foundation-datepicker.css" />
-
-  <!-- 时间 -->
-  <script type="text/javascript" src="${JS_PATH}/foundation-datepicker-master/js/foundation-datepicker.js"></script>
-  <script type="text/javascript"
-    src="${JS_PATH}/foundation-datepicker-master/js/locales/foundation-datepicker.zh-CN.js"></script>
-  <!-- 富文本 -->
-  <script type="text/javascript" charset="utf-8" src="${CONTEXT_PATH}/ueditor/ueditor.config.js"></script>
-  <script type="text/javascript" charset="utf-8" src="${CONTEXT_PATH}/ueditor/ueditor.all.min.js"> </script>
-  <script type="text/javascript" charset="utf-8" src="${CONTEXT_PATH}/ueditor/lang/zh-cn/zh-cn.js"></script>
-
-  <!-- 文件上传 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/form/file.js"></script>
-  <!-- 时间 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/form/date.js"></script>
-  <!-- 地图 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/form/map.js"></script>
-  <!-- 应用选择 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/form/app.js"></script>
-  <!-- 过滤 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/form/filter.js"></script>
-  <!-- 左右选择 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/form/left2right.js"></script>
-  <!-- 树选择 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/form/tree.js"></script>
-
-
-
-  
-  <!-- 列表 -->
-  <script type="text/javascript" src="${JS_PATH}/beta/list/list.js"></script>
-  <script type="text/javascript" src="${JS_PATH}/beta/listrun.js"></script>
-  <script type="text/javascript" src="${JS_PATH}/beta/app_listrun.js"></script>
-  <script type="text/javascript" src="${JS_PATH}/beta/form/form.js"></script>  
-  <script type="text/javascript" src="${JS_PATH}/beta/formrun.js"></script>
-  
-    <%if(searchFlag){%>
-  <!-- 搜索 -->  
-  <script type="text/javascript" src="${JS_PATH}/beta/list/search.js"></script>
-	<%}%>
-	
-  
-  <!-- 前端扩展 -->
-  <script type="text/javascript" src="${CONTEXT_PATH}/jsCustom/${entid}/app_ListR_/file.js"></script>
-  
-  <style>
-  	.hide {
-   		display: none !important;
-	}
-  </style>
-</head>
-<body>
-	         
-	<header class="mui-bar mui-bar-nav" style="display: flex;">
-		<div class="" style="flex: 1;">${listHtml!}</div>
-		<%if(searchFlag){%>
-		<span class="mui-icon mui-icon-search"></span>
-		<%}%>
-	</header>
-	<div class="filter-container">
-		${searchHtml!}
-	</div>
-	
-	<div class="mui-content">
-		<!--下拉刷新容器-->
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="padding-top: 44px;">
-			<div class="mui-scroll">
-				<!--数据列表-->
-				<div class="mui-table-view table-container">
-					
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-		
-	<script type="text/javascript">
-    let entid = "${entid}";
-    let searchFlag = ${ searchFlag!false};
-    FormGlobalConf.isMobileTemp =  ${ appFlag!false};
 
-    if (searchFlag) {
-      	FormGlobalFn.search.inicfg(entid, FormGlobalConf2, function (data) {
-          	FormGlobalData.searchInitData = data;
-      	});
-    }else{
-    	FormGlobalData.searchInitData = {entId: entid}
-    }
-    var listRun = new AppListRun();
-    listRun.setCfgData(FormGlobalConf2);
-    listRun.searchFlag = searchFlag;
-    listRun.searchCacheData = FormGlobalData.searchInitData;//初始查询条件
-    listRun.initevent();
-    listRun.initBtn();
-
-    FormGlobalConf2 = null;
-  </script>
-</body>
+	</body>
 </html>

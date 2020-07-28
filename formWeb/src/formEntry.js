@@ -7,6 +7,8 @@ import TreeRun from 'treeRun'
 
 // const entIdRegExp = /\/(?<entId>[^\/]*)\.html/;
 // let outEntId = entIdRegExp.exec(window.location.href).groups.entId;
+const appRegExp = /(?<app>\/app)\//;
+let app = appRegExp.exec(window.location.href).groups.app;
 let outEntId = FormGlobalFn.getQueryString('entId');
 let optype = FormGlobalFn.getQueryString('optype');
 let isOutMobileTemp = FormGlobalFn.getQueryString('isOutMobileTemp');
@@ -17,7 +19,7 @@ if (viewType === 'true') {
 }
 async function asyncInit() {
 	let _HtmlConfUrl =
-		`/formWeb/beta/transformation/${type}/${outEntId}?optype=${optype}&isOutMobileTemp=${isOutMobileTemp}`;
+		`/formWeb/beta/transformation${app}/${type}/${outEntId}?optype=${optype}&isOutMobileTemp=${isOutMobileTemp}`;
 
 	let HtmlConf = await fetch(_HtmlConfUrl, {
 		method: 'GET'
