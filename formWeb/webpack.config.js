@@ -17,7 +17,7 @@ module.exports = {
 		],
 		appListEntry: ['@babel/polyfill', 'lodash', 'layui-layer', './src/base64.js', './src/common.js',
 			'./src/form/form.js', './src/list/list.js', './src/list/search.js',
-			'./src/thirdParty/mui/js/mui.min.js', './src/thirdParty/mui/css/mui.min.css',
+			'./src/thirdParty/mui/css/mui.min.css',
 			'./src/app_listEntry.js'
 		]
 	},

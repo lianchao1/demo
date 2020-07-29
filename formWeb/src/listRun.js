@@ -62,6 +62,7 @@ export default class ListRun {
 
 		// 初始化左边树
 		if (this.cfgdataModel.leftTree) {
+			$("body > div.table-body > div.left").show();
 			this.initLeftTree();
 		} else {
 			$("body > div.table-body > div.left").hide();
@@ -88,10 +89,12 @@ export default class ListRun {
 		}
 
 		if (this.cfgdata.isMobileTemp && typeof mui !== 'undefined') {
+			mui(_this.$context).off('tap', '[tclick="btn"]');
 			mui(_this.$context).on('tap', '[tclick="btn"]', function() {
 				_this.fun[$(this).attr("fun")](this);
 			});
 		} else {
+			$(_this.$context).off("click", '[tclick="btn"]');
 			$(_this.$context).on("click", '[tclick="btn"]', function() {
 				_this.fun[$(this).attr("fun")](this);
 			});

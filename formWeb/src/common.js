@@ -73,31 +73,6 @@ FormGlobalData = {
 /**
  * @namespace FormGlobalFn.callback
  */
-
-/**
- * 初始化
- * @ignore
- */
-FormGlobalFn.init = function() {
-	$(function() {
-		// 页签切换
-		$(document).on("click", ".form-container .tab-container .tab-header .tab", function(e) {
-			var $ts = $(this);
-			if ($ts.hasClass("active")) return;
-			var $c = $ts.parents(".tab-container");
-			var $tabs = $c.find(".tab-header .tab");
-			$tabs.removeClass("active");
-			$ts.addClass("active");
-			var idx = $tabs.index($ts);
-			$c.find(".tab-body").removeClass("active").eq(idx).addClass("active");
-		});
-
-		$('.mui-bar-nav .mui-icon-search').click(function() {
-			$('.filter-container').toggleClass('active');
-		})
-	});
-}
-
 /**
  * 控件不可编辑
  * @function
@@ -251,7 +226,7 @@ FormGlobalFn.getIframeByWindow = function(windowObj) {
 };
 FormGlobalFn.autoIframe = function(iframeObj) {
 
-	console.log("autoIframe");
+	//console.log("autoIframe");
 	var ifm = iframeObj;
 	var subWeb = document.frames ? iframeObj.document : iframeObj.contentDocument;
 	if (ifm != null && subWeb != null) {
