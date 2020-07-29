@@ -96,10 +96,10 @@ module.exports = {
 	devtool: 'eval-source-map', //eval-source-map
 	devServer: {
 		//contentBase: path.join(__dirname, "dist"), //页面目录
-		publicPath: '/es6/', //内存中生成的编译目标目录(类似应用名)
+		publicPath: '/formWeb/beta2/', //内存中生成的编译目标目录(类似应用名)
 		port: 8081,
 		open: true,
-		openPage: 'es6/appList.html?entId=entid_TEST_INFO_ZBUYAODONG'
+		openPage: '/formWeb/beta2/applist.html?entId=entid_TEST_INFO_ZBUYAODONG'
 	},
 	externals: {
 
