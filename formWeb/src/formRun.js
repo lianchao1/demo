@@ -175,7 +175,7 @@ export default class FormRun {
 					FormGlobalFn.ajaxRequestJson(url, datajson, function(data) {
 						if (data.result) {
 							let val = data.obj;
-							if (fieldRela.initJs != "") {
+							if (fieldRela.initJs != "" && fieldConf.ctrlTypeId !== 'html') {
 								try {
 									eval("val=" + val);
 								} catch (err) {
@@ -983,6 +983,11 @@ export default class FormRun {
 
 					$id.val(value_);
 					$id.trigger("change");
+				}
+				break;
+			case 'html':
+				if($id.length>0){
+					$id.html(value);
 				}
 				break;
 			default:
