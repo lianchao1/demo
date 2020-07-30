@@ -51,6 +51,9 @@ module.exports = {
 		new webpack.DefinePlugin({
 			__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
 		}),
+		new webpack.ProvidePlugin({//优先于cdn方式引入
+			'fetch': 'isomorphic-fetch',
+		}),
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			chunks: ['formEntry'], //添加引入的js,也就是entry中的key
