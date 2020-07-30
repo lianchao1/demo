@@ -256,8 +256,11 @@ export default class FormRun {
 				let id = FormGlobalFn.eleId(fieldConf);
 				if (FormGlobalData.dict[id]) {
 					let val = FormGlobalData.dict[id];
-					if (fieldRela.initJs != "") {
-						eval("val=" + val);
+					if (fieldRela.initJs != "" && fieldConf.ctrlTypeId !== 'html') {
+						try{
+							eval("val=" + val);
+						} catch (err) {
+							val = "";
 					}
 					_this.initSingleFormValue(fieldConf, val);
 
@@ -268,8 +271,12 @@ export default class FormRun {
 								FormGlobalData.dict[id] = data.obj;
 							}
 							let val = data.obj;
-							if (fieldRela.initJs != "") {
-								eval("val=" + val);
+							if (fieldRela.initJs != "" && fieldConf.ctrlTypeId !== 'html') {
+								try{
+									eval("val=" + val);
+								} catch (err) {
+									val = "";
+								}
 							}
 							_this.initSingleFormValue(fieldConf, val);
 						}
@@ -289,11 +296,13 @@ export default class FormRun {
 			let formData = {};
 			if (_this.ctrlType == "list") {
 				formData = _this.data.columnsData;
+			}else if(_this.cfgdataModel.opType !== "create"){
+				formData=_this.data.columnsData;
 			}
-			/**
-			 * 翻译（包括多选，单选，下拉类选项）：
-			 *  列表：listDefault不管有没变量自己翻译，
-			 *  表单：虚拟字段：没表单变量的直接翻译，有表单变量的通过change翻译；
+    		/**
+    		 * 翻译（包括多选，单选，下拉类选项）：
+    		 *  列表：listDefault,html不管有没变量自己翻译，
+    		 *  表单：虚拟字段：没表单变量的直接翻译，有表单变量的通过change翻译；
 			 *  	非虚拟字段：没表单变量的
 			 *  					新增时直接翻译，
 			 *  					修改时(input/textarea:不翻译（oracle取序列）,非输入控件需要翻译)，
@@ -302,7 +311,7 @@ export default class FormRun {
 			 *  列表表单：非listDefault按表单逻辑
 			 */
 			if (_this.ctrlType == 'list') {
-				if (fieldConf.ctrlTypeId == 'listDefault') {
+				if (fieldConf.ctrlTypeId == 'listDefault' || fieldConf.ctrlTypeId == 'html') {
 					/*listDefault不管有没变量直接翻译*/
 					sqlFn(fieldRela, fieldConf, _this, formData);
 					expressionFn(fieldRela, fieldConf, _this, formData);
@@ -323,20 +332,26 @@ export default class FormRun {
 						}
 					}
 				}
-			} else {
-				if (fieldConf.virtualFieldFlag && fieldRela.dependFieldMap == null) {
-					/*虚拟字段：没变量的直接翻译*/
+			} else {				
+				if (fieldConf.ctrlTypeId == 'listDefault' || fieldConf.ctrlTypeId == 'html') {
+					/*listDefault不管有没变量直接翻译*/
 					sqlFn(fieldRela, fieldConf, _this, formData);
 					expressionFn(fieldRela, fieldConf, _this, formData);
-				} else if (!fieldConf.virtualFieldFlag && fieldRela.dependFieldMap == null) {
-					if (_this.cfgdataModel.opType == "create") {
-						/*新增时直接翻译*/
+				} else {
+					if (fieldConf.virtualFieldFlag && fieldRela.dependFieldMap == null) {
+						/*虚拟字段：没变量的直接翻译*/
 						sqlFn(fieldRela, fieldConf, _this, formData);
 						expressionFn(fieldRela, fieldConf, _this, formData);
-					} else if (fieldConf.ctrlTypeId !== 'input' && fieldConf.ctrlTypeId !== 'textarea') {
-						/*修改时(input/textarea:不翻译（oracle取序列）,非输入控件需要翻译)*/
-						sqlFn(fieldRela, fieldConf, _this, formData);
-						expressionFn(fieldRela, fieldConf, _this, formData);
+					} else if (!fieldConf.virtualFieldFlag && fieldRela.dependFieldMap == null) {
+						if (_this.cfgdataModel.opType == "create") {
+							/*新增时直接翻译*/
+							sqlFn(fieldRela, fieldConf, _this, formData);
+							expressionFn(fieldRela, fieldConf, _this, formData);
+						} else if (fieldConf.ctrlTypeId !== 'input' && fieldConf.ctrlTypeId !== 'textarea') {
+							/*修改时(input/textarea:不翻译（oracle取序列）,非输入控件需要翻译)*/
+							sqlFn(fieldRela, fieldConf, _this, formData);
+							expressionFn(fieldRela, fieldConf, _this, formData);
+						}
 					}
 				}
 			}
