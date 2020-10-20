@@ -11,6 +11,8 @@ module.exports = {
 	entry: {
 		main: ['@babel/polyfill','./src/main.js'],
 		page1: ['@babel/polyfill','page1-global.js','./css/page1-global.css','./src/page1.js'],
+		page2:  './src/page2.js',
+		page3:  ['@babel/polyfill','./src/page3.js'],
 	},
 	output: {
 		//filename: './dist/[name].js',
@@ -74,6 +76,18 @@ module.exports = {
 			hash: true,
 			title: 'page',
 			template: path.join(__dirname, './page/page1.html') //模板地址
+		}),
+		new HtmlWebpackPlugin({
+			chunks: ['page2'], //添加引入的js,也就是entry中的key
+			filename: 'page2.html',
+			title: 'page2',
+			template: path.join(__dirname, './page/page2.html') //模板地址
+		}),
+		new HtmlWebpackPlugin({
+			chunks: ['page3'], //添加引入的js,也就是entry中的key
+			filename: 'page3.html',
+			title: 'page3',
+			template: path.join(__dirname, './page/page2.html') //模板地址
 		})
 	],
 	resolve: {
