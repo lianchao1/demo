@@ -12,7 +12,7 @@ module.exports = {
 		main: ['@babel/polyfill','./src/main.js'],
 		page1: ['@babel/polyfill','page1-global.js','./css/page1-global.css','./src/page1.js'],
 		page2:  './src/page2.js',
-		page3:  ['@babel/polyfill','./src/page3.js'],
+		page3:  ['@babel/polyfill','./src/page3.ts'],
 	},
 	output: {
 		//filename: './dist/[name].js',
@@ -21,9 +21,9 @@ module.exports = {
 	},
 	module: {
 		rules: [{
-			test: [/\.js$/],
+			test: /\.(ts|js)?$/,
+			use: 'babel-loader',
 			exclude: /node_modules/,
-			loader: 'babel-loader'
 		}, {
 			test: /\.css$/, //*.global.css->不开启css-loader modules
 			//loader: 'style-loader!css-loader'

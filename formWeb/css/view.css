@@ -1,7 +1,0 @@
-div[ctrltypeid='subEntListR'].table-container div.btn-group,
-div[ctrltypeid='subEntListR'].table-container th.td-checkbox,
-div[ctrltypeid='subEntListR'].table-container td.td-checkbox,
-div[ctrltypeid='subEntListR'].table-container th.td-operate,
-div[ctrltypeid='subEntListR'].table-container td.td-operate {
-	display: none !important;
-}

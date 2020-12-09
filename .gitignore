@@ -3,3 +3,6 @@ springboot/target
 springboot/.project
 springboot/.settings
 es6/node_modules
+es6/dist
+formWeb/node_modules
+formWeb/dist
