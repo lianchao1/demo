@@ -1,0 +1,40 @@
+---------------hive + hadoop 环境-------------
+docker pull lianchao123/hadoop-hive:1
+
+docker tag lianchao123/hadoop-hive:1 hadoop-hive:1
+
+docker run -itd  --net=hadoop --restart=always  --name hadoop-mysql --hostname hadoop-mysql  -p 3307:3306  -e MYSQL_ROOT_PASSWORD=abcd@1234 -v F:\docker_bigdata\data\mysql\data:/var/lib/mysql \
+  mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+
+docker rm -f hadoop-master
+docker run -itd --net=hadoop -p 56670:50070 -p 8088:8088 -p 9083:9083 --name hadoop-master --hostname hadoop-master -v F:\docker_bigdata\data\hadoop-cluster\master\hdfs:/root/hdfs hadoop-hive:1
+
+docker rm -f hadoop-slave1
+docker rm -f hadoop-slave2
+docker run -itd --net=hadoop --name hadoop-slave1 --hostname hadoop-slave1 -v F:\docker_bigdata\data\hadoop-cluster\slave1\hdfs:/root/hdfs hadoop-hive:1
+docker run -itd --net=hadoop --name hadoop-slave2 --hostname hadoop-slave2 -v F:\docker_bigdata\data\hadoop-cluster\slave2\hdfs:/root/hdfs hadoop-hive:1
+
+开启hadoop
+./start-hadoop.sh
+
+关闭安全模式
+hadoop dfsadmin -safemode leave
+
+hive
+hive元数据库初始化
+/usr/local/hive/bin/schematool -dbType mysql -initSchema
+hive启动
+nohup /usr/local/hive/bin/hive --service metastore &
+
+
+# /usr/local/hive/bin/hive
+hive> CREATE SCHEMA testdb;
+OK
+Time taken: 2.052 seconds
+hive> SHOW DATABASES;
+OK
+default
+testdb
+Time taken: 0.48 seconds, Fetched: 2 row(s)
+hive> quit;
